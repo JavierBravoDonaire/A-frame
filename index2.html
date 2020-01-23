@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Practicando con A-Frame</title>
+    <meta name="description" content="Practicando con A-Frame" />
+    <script src="https://aframe.io/releases/1.0.2/aframe.min.js"></script>
+    <script>
+      AFRAME.registerComponent("school-playground", {
+        init: function() {
+          /*var sceneEl = document.querySelector('a-scene');
+          var boxEl = sceneEl.querySelector('a-box');
+          
+          boxEl.addEventListener('foo', function(){
+            boxEl.setAttribute('color', 'orange');
+          });
+          boxEl.emit('foo');*/
+          /*for(var i = 0; i < 50; i++){
+            var boxEl  = document.createElement('a-box');
+            
+            boxEl.setAttribute('material', {color: '#EF2D5E'});
+            boxEl.setAttribute('position', {x: Math.random(), y: Math.random(), z: Math.random()});
+            boxEl.setAttribute('scale', {x: Math.random(), y: Math.random(), z: Math.random()});
+            sceneEl.appendChild(boxEl);
+          }*/
+          /*var boxEl = sceneEl.querySelector('a-box');
+          var cylinderEl = sceneEl.querySelector('a-cylinder');
+          var sphereEl = sceneEl.querySelector('a-sphere');
+          
+          boxEl.setAttribute('rotation', {x: 135, y: 0, z: 0});
+          cylinderEl.setAttribute('geometry', {height: 4});
+          sphereEl.setAttribute('material', {metalness: 1});*/
+          /*console.log(sceneEl);
+          console.log(sceneEl.querySelectorAll('a-entity'));
+          console.log(sceneEl.querySelector('a-box'));
+          console.log(sceneEl.querySelectorAll('a-sphere, a-cylinder'));
+          console.log(sceneEl.querySelectorAll('.coolshape'));*/
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <a-scene school-playground background="color: #FAFAFA">
+      <a-box
+        position="-1 0.5 -3"
+        rotation="0 45 0"
+        color="#4CC3D9"
+        shadow
+      ></a-box>
+      <a-sphere
+        class="coolshape"
+        position="0 1.25 -5"
+        radius="1.25"
+        color="#EF2D5E"
+        shadow
+      ></a-sphere>
+      <a-cylinder
+        class="coolshape"
+        position="1 0.75 -3"
+        radius="0.5"
+        height="1.5"
+        color="#FFC65D"
+        shadow
+      ></a-cylinder>
+      <a-plane
+        position="0 0 -4"
+        rotation="-90 0 0"
+        width="4"
+        height="4"
+        color="#7BC8A4"
+        shadow
+      ></a-plane>
+    </a-scene>
+  </body>
+</html>
