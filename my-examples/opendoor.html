@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Practicando con A-Frame</title>
+   		<meta name="description" content="Practicando con A-Frame">
+		<!-- <script src="https://aframe.io/releases/1.0.2/aframe.min.js"></script> -->
+		<script src="../assets/js/aframe.min.js"></script>
+	</head>
+	<body>
+		<a-scene>
+			<a-assets>
+				<img id="yard" src="../assets/imgs/yard.jpg">
+				<img id="jason" src="../assets/imgs/jason.jpg">
+				<img id="door" src="../assets/imgs/door.png">
+			</a-assets>
+
+			<a-box position="0 0.5 -4" rotation="0 0 0" scale="1 1 1"
+				src="#jason"></a-box>
+			<a-box id="button" position="1.2 1.5 -3" rotation="0 0 0" scale="0.2 0.2 0.2"
+				color="black"></a-box>
+			<a-plane position="0 0 -4" rotation="-90 0 0" width="60" height="20"
+				src="#yard"></a-plane>
+			<a-plane id="puerta" position="0 1.5 -3" src="#door"
+				width="1.5" height="3"></a-plane>
+			<a-sky color="grey"></a-sky>
+
+			<a-entity>
+				<a-camera>
+					<a-cursor></a-cursor>
+				</a-camera>
+			</a-entity>
+		</a-scene>
+
+		<script>
+			var puertaEl = document.querySelector('#puerta');
+			var buttonEl = document.querySelector('#button');
+
+			buttonEl.addEventListener('click', function() {
+				if(puertaEl.getAttribute('rotation').x == -90){
+					puertaEl.setAttribute('rotation', '0 0 0');
+				}else{
+					puertaEl.setAttribute('rotation', '-90 0 0');
+				}
+			});
+		</script>
+	</body>
+</html>
