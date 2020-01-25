@@ -4,11 +4,7 @@
 		<meta charset="utf-8">
 		<title>Practicando con A-Frame</title>
    		<meta name="description" content="Practicando con A-Frame">
-		<!-- <script src="https://aframe.io/releases/1.0.2/aframe.min.js"></script> -->
 		<script src="../assets/js/aframe.min.js"></script>
-		<script src="//aframe.io/releases/0.8.2/aframe.min.js"></script>
-		<script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.3.0/dist/aframe-physics-system.min.js"></script>
-		<script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v5.0.0/dist/aframe-extras.min.js"></script>
 	</head>
 	<body>
 		<a-scene>
@@ -24,9 +20,9 @@
 			<a-box id="button" position="1.2 1.5 -3" rotation="0 0 0" scale="0.2 0.2 0.2"
 				color="black"></a-box>
 			<a-plane position="0 0 -4" rotation="-90 0 0" width="60" height="20"
-				src="#yard"></a-plane>
+				src="#yard" static-body></a-plane>
 			<a-box id="puerta" position="0 1.5 -3" src="#door"
-				width="1.5" height="3" depth="0.0001" dynamic-body></a-box>
+				width="1.5" height="3" depth="0.075" dynamic-body></a-box>
 			<a-sky color="grey"></a-sky>
 
 			<a-entity>
@@ -39,11 +35,10 @@
 		<script>
 			var puertaEl = document.querySelector('#puerta');
 			var buttonEl = document.querySelector('#button');
+			let playing = false;
+			let audio = document.querySelector("#closedoor");
 
 			buttonEl.addEventListener('click', function() {
-				let playing = false;
-     			let audio = document.querySelector("#closedoor");
-
           		if(!playing) {
               		audio.play();
            		} else {
@@ -51,7 +46,6 @@
               		audio.currentTime = 0;
            		}
            		playing = !playing;
-
 
 				if(puertaEl.getAttribute('rotation').y == -90){
 					puertaEl.setAttribute('rotation', '0 0 0');
