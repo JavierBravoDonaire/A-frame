@@ -5,9 +5,11 @@
 		<title>Practicando con A-Frame</title>
    		<meta name="description" content="Practicando con A-Frame">
 		<script src="../assets/js/aframe.min.js"></script>
+		<script src="../assets/js/aframe-extras.min.js"></script>
+		<script src="../assets/js/aframe-physics-system.min.js"></script>
 	</head>
 	<body>
-		<a-scene>
+		<a-scene physics="debug: true">
 			<a-assets>
 				<img id="yard" src="../assets/imgs/yard.jpg">
 				<img id="jason" src="../assets/imgs/jason.jpg">
@@ -16,20 +18,22 @@
 			</a-assets>
 
 			<a-box position="0 0.5 -4" rotation="0 0 0" scale="1 1 1"
-				src="#jason"></a-box>
+				src="#jason" dynamic-body></a-box>
 			<a-box id="button" position="1.2 1.5 -3" rotation="0 0 0" scale="0.2 0.2 0.2"
 				color="black"></a-box>
 			<a-plane position="0 0 -4" rotation="-90 0 0" width="60" height="20"
 				src="#yard" static-body></a-plane>
 			<a-box id="puerta" position="0 1.5 -3" src="#door"
-				width="1.5" height="3" depth="0.075" dynamic-body></a-box>
+				width="1.5" height="3" depth="0.075" static-body></a-box>
 			<a-sky color="grey"></a-sky>
 
-			<a-entity>
-				<a-camera>
+			<a-entity kinematic-body="radius: 0.8" movement-controls="fly: false" position="0 0 5" look-controls>
+        		<a-entity camera position="0 1.6 0" >
 					<a-cursor></a-cursor>
-				</a-camera>
-			</a-entity>
+				</a-entity>
+        		<!-- Cylinder to give an idea of the "size" of the camera rig -->
+        		<a-cylinder height="2" radius="0.8" color="green"></a-box>
+      		</a-entity>
 		</a-scene>
 
 		<script>
