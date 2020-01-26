@@ -15,16 +15,20 @@
 				<img id="jason" src="../assets/imgs/jason.jpg">
 				<img id="door" src="../assets/imgs/door.png">
 				<audio id="closedoor" src="../assets/sounds/close_door.mp3">
+				<a-asset-item id="axe" src="../assets/3d/axe/scene.gltf"></a-asset-item>
 			</a-assets>
 
 			<a-box position="0 0.5 -4" rotation="0 0 0" scale="1 1 1"
 				src="#jason" dynamic-body></a-box>
 			<a-box id="button" position="1.2 1.5 -3" rotation="0 0 0" scale="0.2 0.2 0.2"
 				color="black"></a-box>
-			<a-plane position="0 0 -4" rotation="-90 0 0" width="60" height="20"
+			<a-plane position="0 0 -4" rotation="-90 0 0" width="6" height="20"
 				src="#yard" static-body></a-plane>
 			<a-box id="puerta" position="0 1.5 -3" src="#door"
 				width="1.5" height="3" depth="0.075" static-body></a-box>
+			<a-entity position="-5 1 -1" gltf-model="#axe" scale="0.01 0.01 0.01" rotation="0 90 0"
+				animation="property: rotation; dur: 100; to: 360 90 0; loop: true"
+				animation__2="property: position; dur: 2000; to: 5 1 -1; dir: alternate; loop: true" static-body></a-entity>
 			<a-sky color="grey"></a-sky>
 
 			<a-entity kinematic-body="radius: 0.8" movement-controls="fly: false" position="0 0 5" look-controls>
