@@ -2,65 +2,152 @@
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<title>Practicando con A-Frame</title>
+		<title>Minijuego</title>
    		<meta name="description" content="Practicando con A-Frame">
 		<script src="../assets/js/aframe.min.js"></script>
 		<script src="../assets/js/aframe-extras.min.js"></script>
 		<script src="../assets/js/aframe-physics-system.min.js"></script>
+		<script>
+			AFRAME.registerComponent('restart', {
+				// ...
+
+				tick: function () {
+					if(this.el.getAttribute('position').y < -8){
+						this.el.setAttribute('position', "0 0 5");
+					}
+				}
+			});
+		</script>
 	</head>
 	<body>
+
 		<a-scene physics="debug: true">
 			<a-assets>
-				<img id="yard" src="../assets/imgs/yard.jpg">
-				<img id="jason" src="../assets/imgs/jason.jpg">
+				<img id="floor" src="../assets/imgs/floor.jpg">
 				<img id="door" src="../assets/imgs/door.png">
+				<img id="death" src="../assets/imgs/death.jpg">
+				<img id="rock" src="../assets/imgs/rock.jpg">
+				<img id="angryrock" src="../assets/imgs/angryrock.jpg">
+				<img id="sky" src="../assets/imgs/sky.jpg">
 				<audio id="closedoor" src="../assets/sounds/close_door.mp3">
+				<audio id="stoprock" src="../assets/sounds/stop_rock.mp3">
 				<a-asset-item id="axe" src="../assets/3d/axe/scene.gltf"></a-asset-item>
+				<a-asset-item id="yoda" src="../assets/3d/yoda/scene.gltf"></a-asset-item>
 			</a-assets>
 
-			<a-box position="0 0.5 -4" rotation="0 0 0" scale="1 1 1"
-				src="#jason" dynamic-body></a-box>
-			<a-box id="button" position="1.2 1.5 -3" rotation="0 0 0" scale="0.2 0.2 0.2"
-				color="black"></a-box>
-			<a-plane position="0 0 -4" rotation="-90 0 0" width="6" height="20"
-				src="#yard" static-body></a-plane>
-			<a-box id="puerta" position="0 1.5 -3" src="#door"
+			<!-- First Level -->
+			<a-plane position="0 0 0" rotation="-90 0 0" width="3.25" height="20"
+				src="#floor" repeat="1 5" static-body></a-plane>
+			<a-entity position="-6 0.5 -1" gltf-model="#axe" scale="0.03 0.03 0.03" rotation="0 90 0"
+				animation="property: rotation; dur: 250; to: 360 90 0; loop: true"
+				animation__2="property: position; dur: 1500; to: 6 0.5 -1; dir: alternate; loop: true" static-body></a-entity>
+			<a-entity position="6 0.5 0" gltf-model="#axe" scale="0.03 0.03 0.03" rotation="0 90 0"
+				animation="property: rotation; dur: 250; to: -360 90 0; loop: true"
+				animation__2="property: position; dur: 1500; to: -6 0.5 0; dir: alternate; loop: true" static-body></a-entity>
+			<a-box class="door" position="-0.75 1.5 -3" src="#door"
 				width="1.5" height="3" depth="0.075" static-body></a-box>
-			<a-entity position="-5 1 -1" gltf-model="#axe" scale="0.01 0.01 0.01" rotation="0 90 0"
-				animation="property: rotation; dur: 100; to: 360 90 0; loop: true"
-				animation__2="property: position; dur: 2000; to: 5 1 -1; dir: alternate; loop: true" static-body></a-entity>
-			<a-sky color="grey"></a-sky>
+			<a-box class="door" position="0.75 1.5 -3" src="#door"
+				width="1.5" height="3" depth="0.075" static-body></a-box>
+			<a-box id="button" position="1.75 1.5 -3" rotation="0 0 0" scale="0.2 0.2 0.2"
+				color="black"></a-box>
+			<a-text value="knock knock" position="1.625 1.75 -3" width="4.5" heigth="1.5"
+				color="black"></a-text>
+			<a-entity position="-1 0.5 -5" gltf-model="#yoda" rotation="0 45 0"
+			 	scale="0.25 0.25 0.25" animation-mixer static-body>
+			</a-entity>
 
-			<a-entity kinematic-body="radius: 0.8" movement-controls="fly: false" position="0 0 5" look-controls>
+			<!-- Midlevel -->
+			<a-box class="platform" position="-0.75 -2 -10.75" depth="0.075" rotation="-90 0 0"
+				color="red" scale="1.5 1.5 1.5"
+				animation="property: position; dur: 4000; to: -0.75 22 -10.75;
+							 dir: alternate; loop: true" static-body></a-box>
+			<a-box class="platform" position="0.75 22 -10.75" depth="0.075" rotation="-90 0 0"
+				color="blue" scale="1.5 1.5 1.5"
+				animation="property: position; dur: 4000; to: 0.75 -2 -10.75;
+							 dir: alternate; loop: true" static-body></a-box>
+
+			<!-- Second Level -->
+			<a-plane position="0 19 6" rotation="-90 0 -45" width="3.25" height="7"
+				src="#floor" repeat="1 4"
+				animation="property: rotation; dur: 4000; to: -90 0 45;
+							 dir: alternate; loop: true" static-body></a-plane>
+			<a-plane position="0 19 -6" rotation="-90 0 0" width="3.25" height="8.5"
+				src="#floor" repeat="1 4" static-body></a-plane>
+			<a-box position="-0.75 20 -3" scale="1.5 1.5 1.5" src="#rock" dynamic-body></a-box>
+			<a-box position="0.75 20 -5" scale="1.5 1.5 1.5" src="#rock" dynamic-body></a-box>
+			<a-plane position="-3 19 2" rotation="-90 0 0" width="2" height="1"
+				src="#floor"
+				animation="property: position; dur: 2000; to: 3 19 2;
+							 dir: alternate; loop: true" static-body></a-plane>
+			<a-plane position="5 19 1" rotation="-90 0 0" width="2" height="1"
+				 src="#floor"
+				 animation="property: position; dur: 2000; to: -5 19 1;
+				 			 dir: alternate; loop: true" static-body></a-plane>
+			<a-plane position="4 19 0" rotation="-90 0 0" width="2" height="1"
+				 src="#floor"
+				 animation="property: position; dur: 2000; to: -2 19 0;
+				 			dir: alternate; loop: true" static-body></a-plane>
+			<a-plane position="1 19 -1" rotation="-90 0 0" width="2" height="1"
+				src="#floor"
+				animation="property: position; dur: 2000; to: -1 19 -1;
+								dir: alternate; loop: true" static-body></a-plane>
+			<a-box id="angryblock" position="0 24 -2" width="3" height="5"
+				src="#angryrock" animation="property: position; dur: 150; to: 0 15 -2;
+							 dir: alternate; loop: true" static-body>
+			</a-box>
+			<a-text value="Stop Him (press)" color="black" position="-2.5 21 -4"
+				rotation="0 130 0" scale="1.5 2 2" text=""></a-text>
+			<a-text value="JUMP!!" color="black" position="0 21 10"
+				rotation="0 180 0" scale="4 4 4" text=""></a-text>
+
+			<!-- Final Level -->
+
+
+			<!--  Death plane, sky, ligth and player -->
+			<a-plane id="death" position="0 -10 0" height="100" width="100"
+				rotation="-90 0 0" src="#death" static-body></a-plane>
+
+			<a-sky src="#sky"></a-sky>
+
+			<a-entity id="player" kinematic-body="radius: 0.8" movement-controls="fly: false" position="0 19 -6" restart look-controls>
         		<a-entity camera position="0 1.6 0" >
 					<a-cursor></a-cursor>
 				</a-entity>
-        		<!-- Cylinder to give an idea of the "size" of the camera rig -->
         		<a-cylinder height="2" radius="0.8" color="green"></a-box>
       		</a-entity>
+
+			<a-light type="ambient" color="white"></a-light>
 		</a-scene>
 
 		<script>
-			var puertaEl = document.querySelector('#puerta');
+			var doorEl = document.querySelectorAll('.door');
 			var buttonEl = document.querySelector('#button');
+			var playerEl = document.querySelector('#player');
+			var angryEl = document.querySelector('#angryblock');
 			let playing = false;
-			let audio = document.querySelector("#closedoor");
+			let move = true;
+			let audio1 = document.querySelector("#closedoor");
+			let audio2 = document.querySelector("#stoprock");
 
 			buttonEl.addEventListener('click', function() {
           		if(!playing) {
-              		audio.play();
+              		audio1.play();
            		} else {
-              		audio.pause();
-              		audio.currentTime = 0;
+              		audio1.pause();
+              		audio1.currentTime = 0;
            		}
            		playing = !playing;
 
-				if(puertaEl.getAttribute('rotation').y == -90){
-					puertaEl.setAttribute('rotation', '0 0 0');
-					puertaEl.setAttribute('position', '0 1.5 -3');
+				if(doorEl[0].getAttribute('rotation').y == -90){ // open
+					doorEl[0].setAttribute('rotation', '0 0 0');
+					doorEl[0].setAttribute('position', '-0.75 1.5 -3');
+					doorEl[1].setAttribute('rotation', '0 0 0');
+					doorEl[1].setAttribute('position', '0.75 1.5 -3');
 				}else{
-					puertaEl.setAttribute('rotation', '0 -90 0');
-					puertaEl.setAttribute('position', '-0.75 1.5 -2.25');
+					doorEl[0].setAttribute('rotation', '0 -90 0');
+					doorEl[0].setAttribute('position', '-1.5 1.5 -2.25');
+					doorEl[1].setAttribute('rotation', '0 -90 0');
+					doorEl[1].setAttribute('position', '1.5 1.5 -2.25');
 				}
 			});
 			buttonEl.addEventListener('mouseenter', function() {
@@ -69,6 +156,24 @@
 			});
 			buttonEl.addEventListener('mouseleave', function() {
 				buttonEl.setAttribute('color', "black");
+			});
+
+			angryEl.addEventListener('click', function () {
+				if(!playing) {
+					audio2.play();
+				} else {
+					audio2.pause();
+					audio2.currentTime = 0;
+				}
+				playing = !playing;
+
+				if(move == true){
+					angryEl.pause();
+					move = false;
+				}else{
+					angryEl.play();
+					move = true;
+				}
 			});
 		</script>
 	</body>
