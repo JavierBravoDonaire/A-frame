@@ -7,6 +7,8 @@
 		<script src="../assets/js/aframe.min.js"></script>
 		<script src="../assets/js/aframe-extras.min.js"></script>
 		<script src="../assets/js/aframe-physics-system.min.js"></script>
+		<script src="../assets/js/kinema.js"></script>
+		<script src="../assets/js/aframe-particle-system-component.min.js"></script>
 		<script>
 			AFRAME.registerComponent('restart', {
 				// ...
@@ -29,10 +31,13 @@
 				<img id="rock" src="../assets/imgs/rock.jpg">
 				<img id="angryrock" src="../assets/imgs/angryrock.jpg">
 				<img id="sky" src="../assets/imgs/sky.jpg">
+				<img id="hole" src="../assets/imgs/hole.jpg">
 				<audio id="closedoor" src="../assets/sounds/close_door.mp3">
 				<audio id="stoprock" src="../assets/sounds/stop_rock.mp3">
 				<a-asset-item id="axe" src="../assets/3d/axe/scene.gltf"></a-asset-item>
+				<a-asset-item id="redbutton" src="../assets/3d/redbutton/scene.gltf"></a-asset-item>
 				<a-asset-item id="yoda" src="../assets/3d/yoda/scene.gltf"></a-asset-item>
+				<a-asset-item id="shrek" src="../assets/3d/shrek/scene.gltf"></a-asset-item>
 			</a-assets>
 
 			<!-- First Level -->
@@ -57,14 +62,14 @@
 			</a-entity>
 
 			<!-- Midlevel -->
-			<a-box class="platform" position="-0.75 -2 -10.75" depth="0.075" rotation="-90 0 0"
-				color="red" scale="1.5 1.5 1.5"
-				animation="property: position; dur: 4000; to: -0.75 22 -10.75;
-							 dir: alternate; loop: true" static-body></a-box>
-			<a-box class="platform" position="0.75 22 -10.75" depth="0.075" rotation="-90 0 0"
-				color="blue" scale="1.5 1.5 1.5"
-				animation="property: position; dur: 4000; to: 0.75 -2 -10.75;
-							 dir: alternate; loop: true" static-body></a-box>
+			<a-cylinder class="platform" position="-1.5 -1 -12" radius="1.5" height="0.15"
+				color="red"
+				animation="property: position; dur: 7000; to: -1.5 22 -12;
+							 dir: alternate; loop: true" static-body></a-cylinder>
+			<a-cylinder class="platform" position="1.5 22 -12" radius="1.5" height="0.15"
+				color="blue"
+				animation="property: position; dur: 7000; to: 1.5 -1 -12;
+							 dir: alternate; loop: true" static-body></a-cylinder>
 
 			<!-- Second Level -->
 			<a-plane position="0 19 6" rotation="-90 0 -45" width="3.25" height="7"
@@ -92,7 +97,7 @@
 				animation="property: position; dur: 2000; to: -1 19 -1;
 								dir: alternate; loop: true" static-body></a-plane>
 			<a-box id="angryblock" position="0 24 -2" width="3" height="5"
-				src="#angryrock" animation="property: position; dur: 150; to: 0 15 -2;
+				src="#angryrock" animation="property: position; dur: 500; to: 0 15 -2;
 							 dir: alternate; loop: true" static-body>
 			</a-box>
 			<a-text value="Stop Him (press)" color="black" position="-2.5 21 -4"
@@ -101,7 +106,10 @@
 				rotation="0 180 0" scale="4 4 4" text=""></a-text>
 
 			<!-- Final Level -->
-
+			<a-plane position="0 13 20" rotation="-90 0 0" width="30" height="20"
+				src="#hole" static-body></a-plane>
+			<a-entity id="holebutton" position="0 13.2 20" gltf-model="#redbutton"
+			 	scale="0.25 0.25 0.25"></a-entity>
 
 			<!--  Death plane, sky, ligth and player -->
 			<a-plane id="death" position="0 -10 0" height="100" width="100"
@@ -109,25 +117,30 @@
 
 			<a-sky src="#sky"></a-sky>
 
-			<a-entity id="player" kinematic-body="radius: 0.8" movement-controls="fly: false" position="0 19 -6" restart look-controls>
+			<a-entity id="player" kinema-body="radius: 0.8" movement-controls="fly: false" position="0 0 9" restart look-controls>
         		<a-entity camera position="0 1.6 0" >
 					<a-cursor></a-cursor>
 				</a-entity>
-        		<a-cylinder height="2" radius="0.8" color="green"></a-box>
+        		<a-cylinder height="2" radius="0.5" color="green"></a-box>
       		</a-entity>
 
 			<a-light type="ambient" color="white"></a-light>
 		</a-scene>
 
 		<script>
+			var sceneEl = document.querySelector('a-scene');
 			var doorEl = document.querySelectorAll('.door');
 			var buttonEl = document.querySelector('#button');
 			var playerEl = document.querySelector('#player');
 			var angryEl = document.querySelector('#angryblock');
+			var finalbuttonEl = document.querySelector('#holebutton');
 			let playing = false;
+			let playing2 = false;
 			let move = true;
 			let audio1 = document.querySelector("#closedoor");
 			let audio2 = document.querySelector("#stoprock");
+
+			sceneEl.systems.physics.driver.world.gravity.y = -50;
 
 			buttonEl.addEventListener('click', function() {
           		if(!playing) {
@@ -159,21 +172,77 @@
 			});
 
 			angryEl.addEventListener('click', function () {
-				if(!playing) {
+				if(!playing2) {
 					audio2.play();
 				} else {
 					audio2.pause();
 					audio2.currentTime = 0;
 				}
-				playing = !playing;
+				playing2 = !playing2;
 
 				if(move == true){
-					angryEl.pause();
+					angryEl.removeAttribute('animation');
 					move = false;
 				}else{
-					angryEl.play();
+					angryEl.setAttribute('position','0 24 -2');
+					angryEl.setAttribute('animation','property: position; dur: 500; to: 0 15 -2; dir: alternate; loop: true');
 					move = true;
 				}
+
+			});
+
+			finalbuttonEl.addEventListener('mouseenter', function() {
+				finalbuttonEl.setAttribute('scale', '0.4 0.4 0.4');
+			});
+			finalbuttonEl.addEventListener('mouseleave', function() {
+				finalbuttonEl.setAttribute('scale', '0.25 0.25 0.25');
+			});
+			finalbuttonEl.addEventListener('click', function() {
+				var shrekEl = document.createElement('a-entity');
+				var shrekEl2 = document.createElement('a-entity');
+				var textEl = document.createElement('a-text');
+
+
+				shrekEl.setAttribute('position', '5  13.2 27');
+				shrekEl2.setAttribute('position', '-5  13.2 27');
+
+				shrekEl.setAttribute('scale', '0.0005 0.0005 0.0005');
+				shrekEl2.setAttribute('scale', '0.0005 0.0005 0.0005');
+
+				shrekEl.setAttribute('rotation', '0 180 0');
+				shrekEl2.setAttribute('rotation', '0 180 0');
+
+				shrekEl.setAttribute('gltf-model', '#shrek');
+				shrekEl2.setAttribute('gltf-model', '#shrek');
+
+				shrekEl.setAttribute('animation-mixer' , '');
+				shrekEl2.setAttribute('animation-mixer' , '');
+
+				sceneEl.appendChild(shrekEl);
+				sceneEl.appendChild(shrekEl2);
+
+
+				var aux = -5;
+				for(var i = 0; i < 3; i++){
+					var particleEl = document.createElement('a-entity');
+
+					var pos = aux + " 12.8" + " 30.5"
+					particleEl.setAttribute('position', pos);
+					particleEl.setAttribute('particle-system' , '{color: #EF0000,#44CC00}');
+					sceneEl.appendChild(particleEl);
+					aux += 5;
+				}
+
+				textEl.setAttribute('position','0 19 1000');
+				textEl.setAttribute('scale','15 15 15');
+				textEl.setAttribute('color','gold');
+				textEl.setAttribute('align','center');
+				textEl.setAttribute('rotation','0 180 0');
+				textEl.setAttribute('value','CONGRATULATIONS!!');
+				textEl.setAttribute('animation','property: position; dur: 1000; to: 0 19 30; loop: false');
+				sceneEl.appendChild(textEl);
+
+				finalbuttonEl.parentNode.removeChild(finalbuttonEl);
 			});
 		</script>
 	</body>
