@@ -15,7 +15,7 @@
 
 				tick: function () {
 					if(this.el.getAttribute('position').y < -8){
-						this.el.setAttribute('position', "0 0 5");
+						this.el.setAttribute('position', "0 0 9");
 					}
 				}
 			});
@@ -228,7 +228,7 @@
 
 					var pos = aux + " 12.8" + " 30.5"
 					particleEl.setAttribute('position', pos);
-					particleEl.setAttribute('particle-system' , '{color: #EF0000,#44CC00}');
+					particleEl.setAttribute('particle-system' , 'color: #EF0000,#44CC00');
 					sceneEl.appendChild(particleEl);
 					aux += 5;
 				}
