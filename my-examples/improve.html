@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Improve</title>
+		<script src="../assets/js/aframe.min.js"></script>
+		<script src="../assets/js/aframe-extras.min.js"></script>
+		<script src="../assets/js/aframe-physics-system.min.js"></script>
+		<script src="../assets/js/kinema.js"></script>
+		<script src="../assets/js/aframe-particle-system-component.min.js"></script>
+	</head>
+	<body>
+		<a-scene>
+			<a-assets>
+				<img id="groundimg" src="../assets/imgs/ground.jpg">
+				<img id="panelimg" src="../assets/imgs/wall.jpg">
+				<img id="sky" src="../assets/imgs/sky.jpg">
+			</a-assets>
+
+			<a-plane id="ground" position="0 0 0" rotation="-90 0 0" height="10000"
+				width="10000" src="#groundimg" repeat="800 600" static-body></a-plane>
+			<a-plane id="panel" position="0 2 -4" rotation="0 0 0" height="4"
+				width="4" src="#panelimg" static-body></a-plane>
+
+
+
+
+			<!-- User Camera -->
+			<a-entity id="player" movement-controls="fly: true" position="0 0 9" look-controls>
+	        	<a-entity camera position="0 1.6 0" >
+					<a-cursor></a-cursor>
+				</a-entity>
+	        	<a-cylinder height="2" radius="0.5" color="green"></a-box>
+	      	</a-entity>
+
+			<!-- Sky -->
+			<a-sky src="#sky"></a-sky>
+		</a-scene>
+
+		<script>
+			var sceneEl = document.querySelector('a-scene');
+
+			function createRouter(position){
+				var routerEl = document.createElement('a-cylinder');
+
+				routerEl.setAttribute('position', position);
+				routerEl.setAttribute('radius', '0.5');
+				routerEl.setAttribute('height', '0.5');
+				routerEl.setAttribute('static-body', '');
+				routerEl.setAttribute('color', '#707B7C');
+				routerEl.setAttribute('id', 'router');
+
+				sceneEl.appendChild(routerEl);
+			}
+
+			createRouter("0 0.25 -6");
+		</script>
+	</body>
+</html>
