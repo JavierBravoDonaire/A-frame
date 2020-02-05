@@ -20,10 +20,11 @@
 			<a-plane id="ground" position="0 0 0" rotation="-90 0 0" height="10000"
 				width="10000" src="#groundimg" repeat="800 600" static-body></a-plane>
 			<a-plane id="panel" position="0 2 -4" rotation="0 0 0" height="4"
-				width="4" src="#panelimg" static-body></a-plane>
-
-
-
+				width="4" src="#panelimg" static-body>
+				<a-box id="buttonRouter" position="-1 1 0.05" height="1" width="1" depth="0.1" color="black">
+					<a-text value="Router" position="0 0 0.05" align="center"></a-text>
+				</a-box>
+			</a-plane>
 
 			<!-- User Camera -->
 			<a-entity id="player" movement-controls="fly: true" position="0 0 9" look-controls>
@@ -39,6 +40,7 @@
 
 		<script>
 			var sceneEl = document.querySelector('a-scene');
+			var buttonRouterEl = document.querySelector('#buttonRouter');
 
 			function createRouter(position){
 				var routerEl = document.createElement('a-cylinder');
@@ -53,7 +55,16 @@
 				sceneEl.appendChild(routerEl);
 			}
 
-			createRouter("0 0.25 -6");
+			buttonRouterEl.addEventListener('mouseenter', function() {
+				buttonRouterEl.setAttribute('color', 'red');
+			});
+			buttonRouterEl.addEventListener('mouseleave', function() {
+				buttonRouterEl.setAttribute('color', 'black');
+			});
+			buttonRouterEl.addEventListener('click', function() {
+				createRouter('-3 0.25 -4');
+			});
+
 		</script>
 	</body>
 </html>
