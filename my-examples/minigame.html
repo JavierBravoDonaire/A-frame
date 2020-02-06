@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<title>Minijuego</title>
    		<meta name="description" content="Practicando con A-Frame">
-		<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
-		<script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+		<script src="../assets/js/aframe.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
 		<script src="../assets/js/aframe-physics-system.min.js"></script>
 		<script src="../assets/js/kinema.js"></script>
 		<script src="../assets/js/aframe-particle-system-component.min.js"></script>
@@ -52,7 +52,7 @@
 			</a-assets>
 
 			<!-- First Level -->
-			<a-box position="0 0 -2" color="blue" static-body></a-box>
+			<a-box position="0 0 -2" color="red" static-body></a-box>
 			<a-plane position="0 0 0" rotation="-90 0 0" width="3.25" height="20"
 				src="#floor" repeat="1 5" static-body></a-plane>
 			<a-entity position="-6 0.5 -1" gltf-model="#axe" scale="0.03 0.03 0.03" rotation="0 90 0"
