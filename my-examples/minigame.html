@@ -132,7 +132,19 @@
 			<a-sky src="#sky"></a-sky>
 
 
-			<a-entity id="player" movement-controls="fly: true" position="0 0 9" restart >
+			<a-entity movement-controls="fly: true" position="0 0 0" rotation="0 0 0">
+			        <a-entity camera position="0 1.6 0" look-controls wasd-controls
+			                  capture-mouse
+			                  raycaster="objects: .button,.remote; showLine: true" cursor="rayOrigin:mouse"
+			                  static-body="shape: sphere; sphereRadius: 0.001"
+			                  super-hands="colliderEvent: raycaster-intersection;
+			                               colliderEventProperty: els;
+			                               colliderEndEvent:raycaster-intersection-cleared;
+			                               colliderEndEventProperty: clearedEls;"></a-entity>
+			        <a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
+			        <a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
+			      </a-entity>
+			<!-- <a-entity id="player" movement-controls="fly: true" position="0 0 9" restart >
         		<a-entity camera position="0 1.6 0" look-controls wasd-controls
 					capture-mouse
 					raycaster="objects: .button, .remote; showLine: true" cursor="rayOrigin:mouse"
@@ -141,10 +153,10 @@
 								colliderEndEvent: raycaster-intersection-cleared;
              					colliderEndEventProperty: clearedEls">
 				</a-entity>
-        		<!-- <a-cylinder height="2" radius="0.5" color="green"></a-box> -->
+        		 <a-cylinder height="2" radius="0.5" color="green"></a-box> 
 				<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
 	      		<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
-      		</a-entity>
+      		</a-entity> -->
 
 
 			<a-light type="ambient" color="white"></a-light>
