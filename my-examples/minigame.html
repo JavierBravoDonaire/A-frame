@@ -133,7 +133,7 @@
 			<a-sky src="#sky"></a-sky>
 
 
-			<a-entity id="player" kinema-body="radius: 0.8" movement-controls="fly: false" position="0 0 0" rotation="0 0 0">
+			<a-entity id="player" kinema-body="radius: 0.5" movement-controls="fly: false" position="0 0 0" rotation="0 0 0">
         		<a-entity camera position="0 1.6 0" look-controls wasd-controls
                   		capture-mouse
                   		raycaster="objects: .button,.remote; showLine: true" cursor="rayOrigin:mouse"
@@ -142,7 +142,7 @@
                                colliderEventProperty: els;
                                colliderEndEvent:raycaster-intersection-cleared;
                                colliderEndEventProperty: clearedEls;"></a-entity>
-				<a-cylinder height="2" radius="0.5" color="green"></a-cylinder>
+				<a-cylinder height="1.5" radius="0.5" color="green" dynamic-body></a-cylinder>
         		<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
         		<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
       		</a-entity>
