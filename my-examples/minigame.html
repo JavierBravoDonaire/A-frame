@@ -52,7 +52,7 @@
 			</a-assets>
 
 			<!-- First Level -->
-			<a-box position="0 0 -2" color="pink" static-body></a-box>
+			<a-box position="0 0 -2" color="yellow" static-body></a-box>
 			<a-plane position="0 0 0" rotation="-90 0 0" width="3.25" height="20"
 				src="#floor" repeat="1 5" static-body></a-plane>
 			<a-entity position="-6 0.5 -1" gltf-model="#axe" scale="0.03 0.03 0.03" rotation="0 90 0"
@@ -133,7 +133,7 @@
 			<a-sky src="#sky"></a-sky>
 
 
-			<a-entity id="player" kinema-body="radius: 0.5" movement-controls="fly: false" position="0 0 0" rotation="0 0 0">
+			<a-entity id="player" kinema-body="radius: 0.5" movement-controls="fly: false" dynamic-body position="0 0 0" rotation="0 0 0">
         		<a-entity camera position="0 1.6 0" look-controls wasd-controls
                   		capture-mouse
                   		raycaster="objects: .button,.remote; showLine: true" cursor="rayOrigin:mouse"
@@ -142,7 +142,7 @@
                                colliderEventProperty: els;
                                colliderEndEvent:raycaster-intersection-cleared;
                                colliderEndEventProperty: clearedEls;"></a-entity>
-				<a-cylinder height="1.5" radius="0.5" color="green"></a-cylinder>
+				<a-cylinder position="0 0.75 0" height="1.5" radius="0.5" color="green"></a-cylinder>
         		<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
         		<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
       		</a-entity>
