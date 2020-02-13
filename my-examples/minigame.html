@@ -14,7 +14,7 @@
 			AFRAME.registerComponent('restart', {
 				// ...
 				schema: {
-    				checkpoint: {type: 'string', default: '0 2 9'},
+    				checkpoint: {type: 'string', default: '0 0 9'},
   				},
 
 				tick: function () {
@@ -133,34 +133,21 @@
 			<a-sky src="#sky"></a-sky>
 
 
-			<a-entity id="player" kinema-body="radius: 0.4" movement-controls="fly: false" position="0 2 9" rotation="0 0 0" restart>
-        		<a-entity camera position="0 1.6 0" look-controls wasd-controls
+			<a-entity id="player" kinema-body="radius: 0.8;" movement-controls="fly: false" position="0 2 9" rotation="0 0 0" restart gamepad-controls="" trackpad-controls="" keyboard-controls="" touch-controls="">
+        		<a-entity camera position="0 1.6 0" look-controls
                   		capture-mouse
                   		raycaster="objects: .button,.remote; showLine: true" cursor="rayOrigin:mouse"
-                  		static-body="shape: sphere; sphereRadius: 0.001"
+                  		static-body
                   		super-hands="colliderEvent: raycaster-intersection;
                                colliderEventProperty: els;
                                colliderEndEvent:raycaster-intersection-cleared;
                                colliderEndEventProperty: clearedEls;">
-						<a-cylinder height="1.4" radius="0.4" color="green"></a-cylinder>
 				</a-entity>
+				<a-cylinder position="0 0.5 0" height="1" radius="0.8" color="green"></a-cylinder>
 
         		<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
         		<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
       		</a-entity>
-			<!-- <a-entity id="player" movement-controls="fly: true" position="0 0 9" restart >
-        		<a-entity camera position="0 1.6 0" look-controls wasd-controls
-					capture-mouse
-					raycaster="objects: .button, .remote; showLine: true" cursor="rayOrigin:mouse"
-					super-hands="colliderEvent: raycaster-intersection;
-             					colliderEventProperty: els;
-								colliderEndEvent: raycaster-intersection-cleared;
-             					colliderEndEventProperty: clearedEls">
-				</a-entity>
-        		 <a-cylinder height="2" radius="0.5" color="green"></a-box>
-				<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
-	      		<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
-      		</a-entity> -->
 
 
 			<a-light type="ambient" color="white"></a-light>
