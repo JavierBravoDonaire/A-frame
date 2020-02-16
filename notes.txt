@@ -1,4 +1,29 @@
 ### Anotaciones ###
 
 Fase 0:
+	En esta fase, he estudiado las distintas entidades que existen en
+	a-frame asi como los fundamentos básicos de javascript. He usado
+	el tutorial que proporciona a-frame, que explica paso por paso todas
+	las entidades, las animaciones, las escenas y como crear distintas
+	funcionalidades con javascript.
+	Para probarme mientras estudiaba, he realizado distintos ejemplos que se
+	encuentran en la carpeta de la fase 0. En figures-01 he creado escenas
+	básicas, en las que sólo aparecen entidades y algunas animaciones.
+	En la carpeta my-examples creé un pequeño minijuego para poner en
+	práctica todo lo que he aprendido:
+		- Modelos 3d gltf.
+		- Animaciones.
+		- Comportamiento de entidades (al pulsar sobre ellas o posicionar
+			el cursos sobre ellas).
+		- Funcionalidad de reinicio al caer con javascript.
+
+Fase 1:
+	(CURRENT PHASE)
+	El objetivo de esta fase es conseguir un panel con distintos botones,
+	los cuales pulsando sobre ellos, aparezca una entidad diferente.
+	De momento, sobre el botón aparecerá el nombre de la entidad, pero
+	en un futuro se cambiará por una imagen.
+	Además, si se pone el cursor encima del botón, este cambiará de color y
+	al salir se volverá al color. (esta opción es temporal, ya que al añadir
+	la imagen no será necesario).
 	
