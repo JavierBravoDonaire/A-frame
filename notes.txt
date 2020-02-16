@@ -26,4 +26,8 @@ Fase 1:
 	Además, si se pone el cursor encima del botón, este cambiará de color y
 	al salir se volverá al color. (esta opción es temporal, ya que al añadir
 	la imagen no será necesario).
-	
+	Para la creación de cada entidad, crearé una función en javascript
+	que reciba de argumento la posición del objeto para hacer que el código sea
+	lo más limpio posible.
+	Una vez conseguido lo anterior, dotaré a las entidades del atributo
+	grabbable para que el usuario pueda mover a placer el objeto.

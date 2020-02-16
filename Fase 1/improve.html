@@ -21,8 +21,11 @@
 				width="10000" src="#groundimg" repeat="800 600" static-body></a-plane>
 			<a-plane id="panel" position="0 2 -4" rotation="0 0 0" height="4"
 				width="4" src="#panelimg" static-body>
-				<a-box id="buttonRouter" position="-1 1 0.05" height="1" width="1" depth="0.1" color="black">
+				<a-box id="buttonRouter" class="button" position="-1 1 0.05" height="1" width="1" depth="0.1" color="black">
 					<a-text value="Router" position="0 0 0.05" align="center"></a-text>
+				</a-box>
+				<a-box id="buttonSphere" class="button" position="-1 0 0.05" height="1" width="1" depth="0.1" color="black">
+					<a-text value="Sphere" position="0 0 0.05" align="center"></a-text>
 				</a-box>
 			</a-plane>
 
@@ -41,6 +44,7 @@
 		<script>
 			var sceneEl = document.querySelector('a-scene');
 			var buttonRouterEl = document.querySelector('#buttonRouter');
+			var buttonSphereEl = document.querySelector('#buttonSphere');
 
 			function createRouter(position){
 				var routerEl = document.createElement('a-cylinder');
@@ -55,6 +59,19 @@
 				sceneEl.appendChild(routerEl);
 			}
 
+			function createSphere(position){
+				var sphereEl = document.createElement('a-sphere');
+
+				sphereEl.setAttribute('position', position);
+				sphereEl.setAttribute('radius', '0.5');
+				sphereEl.setAttribute('static-body', '');
+				sphereEl.setAttribute('color', 'red');
+				sphereEl.setAttribute('id', 'sphere');
+
+				sceneEl.appendChild(sphereEl);
+			}
+
+			// Router Button Events
 			buttonRouterEl.addEventListener('mouseenter', function() {
 				buttonRouterEl.setAttribute('color', 'red');
 			});
@@ -63,6 +80,16 @@
 			});
 			buttonRouterEl.addEventListener('click', function() {
 				createRouter('-3 0.25 -4');
+			});
+			// Sphere Button Events
+			buttonSphereEl.addEventListener('mouseenter', function() {
+				buttonSphereEl.setAttribute('color', 'red');
+			});
+			buttonSphereEl.addEventListener('mouseleave', function() {
+				buttonSphereEl.setAttribute('color', 'black');
+			});
+			buttonSphereEl.addEventListener('click', function() {
+				createSphere('-5 0.5 -4');
 			});
 
 		</script>
