@@ -6,8 +6,7 @@
 		<script src="../../assets/js/aframe.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
 		<script src="../../assets/js/aframe-physics-system.min.js"></script>
-		<script src="../../assets/js/kinema.js"></script>
-		<script src="../../assets/js/aframe-particle-system-component.min.js"></script>
+		<script src="../../assets/js/super-hands.min.js"></script>
 	</head>
 	<body>
 		<a-scene>
@@ -21,20 +20,30 @@
 				width="10000" src="#groundimg" repeat="800 600" static-body></a-plane>
 			<a-plane id="panel" position="0 2 -4" rotation="0 0 0" height="4"
 				width="4" src="#panelimg" static-body>
-				<a-box id="buttonRouter" class="button" position="-1 1 0.05" height="1" width="1" depth="0.1" color="black">
+				<a-box id="buttonRouter" clickable class="button" position="-1 1.25 0.05" height="1" width="1" depth="0.1" color="black">
 					<a-text value="Router" position="0 0 0.05" align="center"></a-text>
 				</a-box>
-				<a-box id="buttonSphere" class="button" position="-1 0 0.05" height="1" width="1" depth="0.1" color="black">
+				<a-box id="buttonSphere" clickable class="button" position="-1 0 0.05" height="1" width="1" depth="0.1" color="black">
 					<a-text value="Sphere" position="0 0 0.05" align="center"></a-text>
+				</a-box>
+				<a-box id="buttonBox" clickable class="button" position="-1 -1.25 0.05" height="1" width="1" depth="0.1" color="black">
+					<a-text value="Box" position="0 0 0.05" align="center"></a-text>
 				</a-box>
 			</a-plane>
 
 			<!-- User Camera -->
 			<a-entity id="player" movement-controls="fly: true" position="0 0 9" look-controls>
-	        	<a-entity camera position="0 1.6 0" >
-					<a-cursor></a-cursor>
+	        	<a-entity camera position="0 1.6 0" capture-mouse
+				raycaster="objects: .button, .remote; showLine: true" cursor="rayOrigin:mouse"
+				static-body
+				super-hands="colliderEvent: raycaster-intersection;
+					   colliderEventProperty: els;
+					   colliderEndEvent:raycaster-intersection-cleared;
+					   colliderEndEventProperty: clearedEls;">
 				</a-entity>
-	        	<a-cylinder height="2" radius="0.5" color="green"></a-box>
+
+				<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
+     			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
 	      	</a-entity>
 
 			<!-- Sky -->
@@ -45,6 +54,7 @@
 			var sceneEl = document.querySelector('a-scene');
 			var buttonRouterEl = document.querySelector('#buttonRouter');
 			var buttonSphereEl = document.querySelector('#buttonSphere');
+			var buttonBoxEl = document.querySelector('#buttonBox');
 
 			function createRouter(position){
 				var routerEl = document.createElement('a-cylinder');
@@ -55,6 +65,8 @@
 				routerEl.setAttribute('static-body', '');
 				routerEl.setAttribute('color', '#707B7C');
 				routerEl.setAttribute('id', 'router');
+				routerEl.setAttribute('class', 'remote');
+				routerEl.setAttribute('grabbable', {});
 
 				sceneEl.appendChild(routerEl);
 			}
@@ -67,31 +79,50 @@
 				sphereEl.setAttribute('static-body', '');
 				sphereEl.setAttribute('color', 'red');
 				sphereEl.setAttribute('id', 'sphere');
+				sphereEl.setAttribute('class', 'remote');
+				sphereEl.setAttribute('grabbable', {});
 
 				sceneEl.appendChild(sphereEl);
 			}
 
+			function createBox(position){
+				var boxEl = document.createElement('a-box');
+
+				boxEl.setAttribute('position', position);
+				boxEl.setAttribute('scale', '1 1 1');
+				boxEl.setAttribute('static-body', '');
+				boxEl.setAttribute('color', 'blue');
+				boxEl.setAttribute('id', 'box');
+				boxEl.setAttribute('class', 'remote');
+				boxEl.setAttribute('grabbable', {});
+
+				sceneEl.appendChild(boxEl);
+			}
+
 			// Router Button Events
-			buttonRouterEl.addEventListener('mouseenter', function() {
+			buttonRouterEl.addEventListener('grab-start', function() {
 				buttonRouterEl.setAttribute('color', 'red');
-			});
-			buttonRouterEl.addEventListener('mouseleave', function() {
-				buttonRouterEl.setAttribute('color', 'black');
-			});
-			buttonRouterEl.addEventListener('click', function() {
 				createRouter('-3 0.25 -4');
 			});
+			buttonRouterEl.addEventListener('grab-end', function() {
+				buttonRouterEl.setAttribute('color', 'black');
+			});
 			// Sphere Button Events
-			buttonSphereEl.addEventListener('mouseenter', function() {
+			buttonSphereEl.addEventListener('grab-start', function() {
 				buttonSphereEl.setAttribute('color', 'red');
-			});
-			buttonSphereEl.addEventListener('mouseleave', function() {
-				buttonSphereEl.setAttribute('color', 'black');
-			});
-			buttonSphereEl.addEventListener('click', function() {
 				createSphere('-5 0.5 -4');
 			});
-
+			buttonSphereEl.addEventListener('grab-end', function() {
+				buttonSphereEl.setAttribute('color', 'black');
+			});
+			// Box Button Events
+			buttonBoxEl.addEventListener('grab-start', function() {
+				buttonBoxEl.setAttribute('color', 'red');
+				createBox('-7 0.5 -4');
+			});
+			buttonBoxEl.addEventListener('grab-end', function() {
+				buttonBoxEl.setAttribute('color', 'black');
+			});
 		</script>
 	</body>
 </html>
