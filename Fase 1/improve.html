@@ -56,53 +56,80 @@
 			var buttonSphereEl = document.querySelector('#buttonSphere');
 			var buttonBoxEl = document.querySelector('#buttonBox');
 
-			function createRouter(position){
-				var routerEl = document.createElement('a-cylinder');
+			// function createRouter(position){
+			// 	var routerEl = document.createElement('a-cylinder');
+			//
+			// 	routerEl.setAttribute('position', position);
+			// 	routerEl.setAttribute('radius', '0.5');
+			// 	routerEl.setAttribute('height', '0.5');
+			// 	routerEl.setAttribute('static-body', '');
+			// 	routerEl.setAttribute('color', '#707B7C');
+			// 	routerEl.setAttribute('id', 'router');
+			// 	routerEl.setAttribute('class', 'remote');
+			// 	routerEl.setAttribute('grabbable', {});
+			//
+			// 	sceneEl.appendChild(routerEl);
+			// }
+			//
+			// function createSphere(position){
+			// 	var sphereEl = document.createElement('a-sphere');
+			//
+			// 	sphereEl.setAttribute('position', position);
+			// 	sphereEl.setAttribute('radius', '0.5');
+			// 	sphereEl.setAttribute('static-body', '');
+			// 	sphereEl.setAttribute('color', 'red');
+			// 	sphereEl.setAttribute('class', 'sphere');
+			// 	sphereEl.setAttribute('class', 'remote');
+			// 	sphereEl.setAttribute('grabbable', {});
+			//
+			// 	sceneEl.appendChild(sphereEl);
+			// }
+			//
+			// function createBox(position){
+			// 	var boxEl = document.createElement('a-box');
+			//
+			// 	boxEl.setAttribute('position', position);
+			// 	boxEl.setAttribute('scale', '1 1 1');
+			// 	boxEl.setAttribute('static-body', '');
+			// 	boxEl.setAttribute('color', 'blue');
+			// 	boxEl.setAttribute('class', 'box');
+			// 	boxEl.setAttribute('class', 'remote');
+			// 	boxEl.setAttribute('grabbable', {});
+			//
+			// 	sceneEl.appendChild(boxEl);
+			// }
 
-				routerEl.setAttribute('position', position);
-				routerEl.setAttribute('radius', '0.5');
-				routerEl.setAttribute('height', '0.5');
-				routerEl.setAttribute('static-body', '');
-				routerEl.setAttribute('color', '#707B7C');
-				routerEl.setAttribute('id', 'router');
-				routerEl.setAttribute('class', 'remote');
-				routerEl.setAttribute('grabbable', {});
+			function createEl(entity, position) {
+				var newEl = document.createElement('a-entity');
 
-				sceneEl.appendChild(routerEl);
-			}
+				switch(entity) {
+					case "router":
+						newEl.setAttribute('geometry', {primitive: 'cylinder', radius: 0.5, height: 0.5});
+						newEl.setAttribute('material', {color: '#707B7C'});
+						break;
+					case "sphere":
+						newEl.setAttribute('geometry', {primitive: 'sphere', radius: 0.5});
+						newEl.setAttribute('material', {color: 'red'});
+						break;
+					case "box":
+						newEl.setAttribute('geometry', {primitive: 'box'});
+						newEl.setAttribute('material', {color: 'blue'});
+					    break;
+					default:
+					    newEl.setAttribute('scale', '0 0 0');
+				}
+				newEl.setAttribute('static-body', '');
+				newEl.setAttribute('position', position);
+				newEl.setAttribute('class', entity + " remote");
+				newEl.setAttribute('grabbable', {});
 
-			function createSphere(position){
-				var sphereEl = document.createElement('a-sphere');
-
-				sphereEl.setAttribute('position', position);
-				sphereEl.setAttribute('radius', '0.5');
-				sphereEl.setAttribute('static-body', '');
-				sphereEl.setAttribute('color', 'red');
-				sphereEl.setAttribute('id', 'sphere');
-				sphereEl.setAttribute('class', 'remote');
-				sphereEl.setAttribute('grabbable', {});
-
-				sceneEl.appendChild(sphereEl);
-			}
-
-			function createBox(position){
-				var boxEl = document.createElement('a-box');
-
-				boxEl.setAttribute('position', position);
-				boxEl.setAttribute('scale', '1 1 1');
-				boxEl.setAttribute('static-body', '');
-				boxEl.setAttribute('color', 'blue');
-				boxEl.setAttribute('id', 'box');
-				boxEl.setAttribute('class', 'remote');
-				boxEl.setAttribute('grabbable', {});
-
-				sceneEl.appendChild(boxEl);
+				sceneEl.appendChild(newEl);
 			}
 
 			// Router Button Events
 			buttonRouterEl.addEventListener('grab-start', function() {
-				buttonRouterEl.setAttribute('color', 'red');
-				createRouter('-3 0.25 -4');
+				buttonRouterEl.setAttribute('color', '#707B7C');
+				createEl("router",'-3 0.25 -4');
 			});
 			buttonRouterEl.addEventListener('grab-end', function() {
 				buttonRouterEl.setAttribute('color', 'black');
@@ -110,15 +137,15 @@
 			// Sphere Button Events
 			buttonSphereEl.addEventListener('grab-start', function() {
 				buttonSphereEl.setAttribute('color', 'red');
-				createSphere('-5 0.5 -4');
+				createEl("sphere",'-5 0.5 -4');
 			});
 			buttonSphereEl.addEventListener('grab-end', function() {
 				buttonSphereEl.setAttribute('color', 'black');
 			});
 			// Box Button Events
 			buttonBoxEl.addEventListener('grab-start', function() {
-				buttonBoxEl.setAttribute('color', 'red');
-				createBox('-7 0.5 -4');
+				buttonBoxEl.setAttribute('color', 'blue');
+				createEl("box",'-7 0.5 -4');
 			});
 			buttonBoxEl.addEventListener('grab-end', function() {
 				buttonBoxEl.setAttribute('color', 'black');
