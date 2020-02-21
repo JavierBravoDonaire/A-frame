@@ -7,6 +7,20 @@
 		<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
 		<script src="../assets/js/aframe-physics-system.min.js"></script>
 		<script src="../assets/js/super-hands.min.js"></script>
+		<script>
+			AFRAME.registerComponent('clone', {
+				// ...
+
+				tick: function () {
+					var data = this.data;
+
+					if(this.el.getAttribute('position').y < -6){
+						this.el.setAttribute('position', data.checkpoint);
+						audio.play();
+					}
+				}
+			});
+		</script>
 	</head>
 	<body>
 		<a-scene>
@@ -14,11 +28,13 @@
 				<img id="groundimg" src="../assets/imgs/ground.jpg">
 				<img id="panelimg" src="../assets/imgs/wall.jpg">
 				<img id="sky" src="../assets/imgs/sky.jpg">
+
+				<a-asset-item id="table" src="../../assets/3d/table/scene.gltf"></a-asset-item>
 			</a-assets>
 
 			<a-plane id="ground" position="0 0 0" rotation="-90 0 0" height="10000"
 				width="10000" src="#groundimg" repeat="800 600" static-body></a-plane>
-			<a-plane id="panel" position="0 2 -4" rotation="0 0 0" height="4"
+			<!-- <a-plane id="panel" position="0 2 -4" rotation="0 0 0" height="4"
 				width="4" src="#panelimg" static-body>
 				<a-box id="buttonRouter" clickable class="button" position="-1 1.25 0.05" height="1" width="1" depth="0.1" color="black">
 					<a-text value="Router" position="0 0 0.05" align="center"></a-text>
@@ -29,12 +45,21 @@
 				<a-box id="buttonBox" clickable class="button" position="-1 -1.25 0.05" height="1" width="1" depth="0.1" color="black">
 					<a-text value="Box" position="0 0 0.05" align="center"></a-text>
 				</a-box>
-			</a-plane>
+			</a-plane> -->
+
+			<a-entity id="palette" position="0 0 5" gltf-model="#table" scale="0.02 0.02 0.02" rotation="0 0 0" static-body></a-entity>
+
+			<a-cylinder id="cylinderHolo" class="holo" clickable position="0.5 1.25 5.75" radius="0.25" height="0.25" color="#707B7C" transparent='true' opacity=0.7
+				animation="property: position; dur: 2000; to: 0.5 1.5 5.75; dir: alternate; loop: true"></a-cylinder>
+			<a-box id="boxHolo" class="holo" clickable position="0.5 1.25 4.75" width="0.5" height="0.5" depth="0.5" color="blue" transparent='true' opacity=0.7
+				animation="property: position; dur: 1800; to: 0.5 1.5 4.75; dir: alternate; loop: true"></a-box>
+			<a-sphere id="sphereHolo" class="holo" clickable position="-0.5 1.25 5.75" radius="0.25" color="red" transparent='true' opacity=0.7
+				animation="property: position; dur: 2500; to: -0.5 1.5 5.75; dir: alternate; loop: true"></a-sphere>
 
 			<!-- User Camera -->
 			<a-entity id="player" movement-controls="fly: true" position="0 0 9" look-controls>
-	        	<a-entity camera position="0 1.6 0" capture-mouse
-				raycaster="objects: .button, .remote; showLine: true" cursor="rayOrigin:mouse"
+	        	<a-entity camera position="0 1.7 0" capture-mouse
+				raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
 				static-body
 				super-hands="colliderEvent: raycaster-intersection;
 					   colliderEventProperty: els;
@@ -52,104 +77,91 @@
 
 		<script>
 			var sceneEl = document.querySelector('a-scene');
-			var buttonRouterEl = document.querySelector('#buttonRouter');
-			var buttonSphereEl = document.querySelector('#buttonSphere');
-			var buttonBoxEl = document.querySelector('#buttonBox');
-
-			// function createRouter(position){
-			// 	var routerEl = document.createElement('a-cylinder');
-			//
-			// 	routerEl.setAttribute('position', position);
-			// 	routerEl.setAttribute('radius', '0.5');
-			// 	routerEl.setAttribute('height', '0.5');
-			// 	routerEl.setAttribute('static-body', '');
-			// 	routerEl.setAttribute('color', '#707B7C');
-			// 	routerEl.setAttribute('id', 'router');
-			// 	routerEl.setAttribute('class', 'remote');
-			// 	routerEl.setAttribute('grabbable', {});
-			//
-			// 	sceneEl.appendChild(routerEl);
-			// }
-			//
-			// function createSphere(position){
-			// 	var sphereEl = document.createElement('a-sphere');
-			//
-			// 	sphereEl.setAttribute('position', position);
-			// 	sphereEl.setAttribute('radius', '0.5');
-			// 	sphereEl.setAttribute('static-body', '');
-			// 	sphereEl.setAttribute('color', 'red');
-			// 	sphereEl.setAttribute('class', 'sphere');
-			// 	sphereEl.setAttribute('class', 'remote');
-			// 	sphereEl.setAttribute('grabbable', {});
-			//
-			// 	sceneEl.appendChild(sphereEl);
-			// }
-			//
-			// function createBox(position){
-			// 	var boxEl = document.createElement('a-box');
-			//
-			// 	boxEl.setAttribute('position', position);
-			// 	boxEl.setAttribute('scale', '1 1 1');
-			// 	boxEl.setAttribute('static-body', '');
-			// 	boxEl.setAttribute('color', 'blue');
-			// 	boxEl.setAttribute('class', 'box');
-			// 	boxEl.setAttribute('class', 'remote');
-			// 	boxEl.setAttribute('grabbable', {});
-			//
-			// 	sceneEl.appendChild(boxEl);
-			// }
+			var playerEl = document.querySelector('#player');
+			var holoCylinderEl = document.querySelector('#cylinderHolo');
+			var holoBoxEl = document.querySelector('#boxHolo');
+			var holoSphereEl = document.querySelector('#sphereHolo');
 
 			function createEl(entity, position) {
 				var newEl = document.createElement('a-entity');
 
 				switch(entity) {
-					case "router":
-						newEl.setAttribute('geometry', {primitive: 'cylinder', radius: 0.5, height: 0.5});
+					case "cylinder":
+						newEl.setAttribute('geometry', {primitive: 'cylinder', radius: 0.25, height: 0.25});
 						newEl.setAttribute('material', {color: '#707B7C'});
 						break;
 					case "sphere":
-						newEl.setAttribute('geometry', {primitive: 'sphere', radius: 0.5});
+						newEl.setAttribute('geometry', {primitive: 'sphere', radius: 0.25});
 						newEl.setAttribute('material', {color: 'red'});
 						break;
 					case "box":
-						newEl.setAttribute('geometry', {primitive: 'box'});
+						newEl.setAttribute('geometry', {primitive: 'box', width: 0.5, height: 0.5, depth: 0.5});
 						newEl.setAttribute('material', {color: 'blue'});
 					    break;
 					default:
 					    newEl.setAttribute('scale', '0 0 0');
+						newEl.setAttribute('position', position);
 				}
-				newEl.setAttribute('static-body', '');
 				newEl.setAttribute('position', position);
-				newEl.setAttribute('class', entity + " remote");
 				newEl.setAttribute('grabbable', {});
+				newEl.setAttribute('strechable', {});
+				newEl.setAttribute('static-body', '');
+				newEl.setAttribute('class', entity + " remote");
 
 				sceneEl.appendChild(newEl);
 			}
 
-			// Router Button Events
-			buttonRouterEl.addEventListener('grab-start', function() {
-				buttonRouterEl.setAttribute('color', '#707B7C');
-				createEl("router",'-3 0.25 -4');
+			function getNewPosition(){
+				var x = playerEl.getAttribute('position').x;
+				var y = playerEl.getAttribute('position').y;
+				var z = playerEl.getAttribute('position').z;
+
+				if(z < 0){
+					z = z+1;
+				}else{
+					z = z-1;
+				}
+				return ((x+0.25) + " " + (y+1.5) + " " + (z));
+			}
+
+			// Sphere Holo Events
+			holoSphereEl.addEventListener('grab-start', function() {
+				createEl("sphere", getNewPosition());
 			});
-			buttonRouterEl.addEventListener('grab-end', function() {
-				buttonRouterEl.setAttribute('color', 'black');
+			// Cylinder Holo Events
+			holoCylinderEl.addEventListener('grab-start', function() {
+				createEl("cylinder", getNewPosition());
 			});
-			// Sphere Button Events
-			buttonSphereEl.addEventListener('grab-start', function() {
-				buttonSphereEl.setAttribute('color', 'red');
-				createEl("sphere",'-5 0.5 -4');
+			// Box Holo Events
+			holoBoxEl.addEventListener('grab-start', function() {
+				createEl("box", getNewPosition());
 			});
-			buttonSphereEl.addEventListener('grab-end', function() {
-				buttonSphereEl.setAttribute('color', 'black');
-			});
-			// Box Button Events
-			buttonBoxEl.addEventListener('grab-start', function() {
-				buttonBoxEl.setAttribute('color', 'blue');
-				createEl("box",'-7 0.5 -4');
-			});
-			buttonBoxEl.addEventListener('grab-end', function() {
-				buttonBoxEl.setAttribute('color', 'black');
-			});
+
+			//
+			// // Router Button Events
+			// buttonRouterEl.addEventListener('grab-start', function() {
+			// 	buttonRouterEl.setAttribute('color', '#707B7C');
+			// 	createEl("router",'-3 0.25 -4');
+			// });
+			// buttonRouterEl.addEventListener('grab-end', function() {
+			// 	buttonRouterEl.setAttribute('color', 'black');
+			// });
+			// // Sphere Button Events
+			// buttonSphereEl.addEventListener('grab-start', function() {
+			// 	buttonSphereEl.setAttribute('color', 'red');
+			// 	createEl("sphere",'-5 0.5 -4');
+			// });
+			// buttonSphereEl.addEventListener('grab-end', function() {
+			// 	buttonSphereEl.setAttribute('color', 'black');
+			// });
+			// // Box Button Events
+			// buttonBoxEl.addEventListener('grab-start', function() {
+			// 	buttonBoxEl.setAttribute('color', 'blue');
+			// 	createEl("box",'-7 0.5 -4');
+			// });
+			// buttonBoxEl.addEventListener('grab-end', function() {
+			// 	buttonBoxEl.setAttribute('color', 'black');
+			// });
 		</script>
 	</body>
 </html>
