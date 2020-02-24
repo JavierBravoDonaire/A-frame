@@ -8,16 +8,28 @@
 		<script src="../assets/js/aframe-physics-system.min.js"></script>
 		<script src="../assets/js/super-hands.min.js"></script>
 		<script>
-			AFRAME.registerComponent('clone', {
+			AFRAME.registerComponent('editable', {
 				// ...
+				// schema: {
+    			// 	checkpoint: {type: 'string', default: '0 0 9'},
+  				// },
 
-				tick: function () {
-					var data = this.data;
+				init: function () {
+					let el = this.el;
+					let data = this.data;
 
-					if(this.el.getAttribute('position').y < -6){
-						this.el.setAttribute('position', data.checkpoint);
-						audio.play();
-					}
+					this.el.addEventListener('grab-start', function() {
+						console.log("grabbed");
+
+						let editTable = document.createElement('a-entity');
+
+						editTable.setAttribute('geometry', {primitive: 'plane', width: 1, height: 0.5});
+						editTable.setAttribute('strechable', {});
+						editTable.setAttribute('class', "editTable");
+						editTable.setAttribute('position', "1.5 0 0");
+
+						el.appendChild(editTable);
+					});
 				}
 			});
 		</script>
@@ -55,6 +67,8 @@
 				animation="property: position; dur: 1800; to: 0.5 1.5 4.75; dir: alternate; loop: true"></a-box>
 			<a-sphere id="sphereHolo" class="holo" clickable position="-0.5 1.25 5.75" radius="0.25" color="red" transparent='true' opacity=0.7
 				animation="property: position; dur: 2500; to: -0.5 1.5 5.75; dir: alternate; loop: true"></a-sphere>
+
+
 
 			<!-- User Camera -->
 			<a-entity id="player" movement-controls="fly: true" position="0 0 9" look-controls>
@@ -105,6 +119,7 @@
 				newEl.setAttribute('position', position);
 				newEl.setAttribute('grabbable', {});
 				newEl.setAttribute('strechable', {});
+				newEl.setAttribute('editable', {});
 				newEl.setAttribute('static-body', '');
 				newEl.setAttribute('class', entity + " remote");
 
