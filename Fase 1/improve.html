@@ -9,11 +9,6 @@
 		<script src="../assets/js/super-hands.min.js"></script>
 		<script>
 			AFRAME.registerComponent('editable', {
-				// ...
-				// schema: {
-    			// 	checkpoint: {type: 'string', default: '0 0 9'},
-  				// },
-
 				init: function () {
 					let el = this.el;
 					let data = this.data;
@@ -28,10 +23,35 @@
 						editTable.setAttribute('class', "editTable");
 						editTable.setAttribute('position', "1.5 0 0");
 
+						let button = document.createElement('a-entity');
+    					button.setAttribute('button', {});
+    					button.setAttribute('position', {x:-0.3, y: 0.1, z: 0.01});
+    					editTable.appendChild(button);
+
 						el.appendChild(editTable);
 					});
 				}
 			});
+
+			AFRAME.registerComponent('button', {
+				  init: function () {
+				    let el = this.el;
+
+				    let button = document.createElement('a-entity');
+				    button.setAttribute('geometry', {primitive: 'box',
+				                                     width: 0.1, height: 0.1, depth: 0.025});
+				    button.setAttribute('material', {color: 'red'});
+				    button.setAttribute('clickable', {});
+				    button.classList.add("button");
+
+				    button.addEventListener('grab-start', (e) => {
+				      console.log("Grab-start!");
+				      button.setAttribute('material',  {color: 'green'});
+				    });
+
+				    el.appendChild(button);
+				  }
+				});
 		</script>
 	</head>
 	<body>
