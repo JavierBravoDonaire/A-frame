@@ -114,7 +114,7 @@
 				animation="property: position; dur: 2500; to: -0.5 1.5 5.75; dir: alternate; loop: true"></a-sphere>
 
 
-				<a-box id="caja" position="0 0 0" width="0.5" height="0.5" depth="0.5" color="blue"></a-box>
+				<a-box id="caja" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="yellow" grabbable stretchable dynamic-body></a-box>
 
 
 			<!-- User Camera -->
@@ -151,7 +151,7 @@
 			<a-entity movement-controls="fly: true" position="0 0 9" rotation="0 0 0">
         <a-entity camera position="0 1.6 0" look-controls wasd-controls
                   capture-mouse
-                  raycaster="objects: .button,.remote, .holo; showLine: true" cursor="rayOrigin:mouse"
+                  raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
                   static-body="shape: sphere; sphereRadius: 0.001"
                   super-hands="colliderEvent: raycaster-intersection;
                                colliderEventProperty: els;
