@@ -70,9 +70,7 @@
 					 shadow
 	                 event-set__dragdrop="_event: drag-drop; geometry.primitive: sphere; geometry.radius: 0.25"
 					 event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
-	                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"
-	                 event-set__dragon="_event: dragover-start; material.wireframe: true"
-	                 event-set__dragoff="_event: dragover-end; material.wireframe: false"></a-mixin>
+	                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"></a-mixin>
 				<a-mixin id="sphere" geometry="primitive: sphere; radius: 0.25"
 		             hoverable grabbable stretchable draggable droppable
 					 shadow
@@ -114,15 +112,16 @@
 				animation="property: position; dur: 2500; to: -0.5 1.5 5.75; dir: alternate; loop: true"></a-sphere>
 
 
-			<a-box id="caja" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="yellow" grabbable stretchable dynamic-body></a-box>
+			<a-box id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="yellow" grabbable stretchable kinema-body></a-box>
 
 
 			<!-- User Camera -->
-			<!-- <a-entity id="player" movement-controls="fly: true" position="0 0 9" look-controls>
+			<a-entity id="player" movement-controls="fly: true" position="0 0 9" look-controls
+				progressive-controls="objects: [grabbable], [droppable], [clickable];">
 	        	<a-entity camera position="0 1.7 0" capture-mouse
-				raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
-				static-body
-				super-hands="colliderEvent: raycaster-intersection;
+					raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
+					static-body
+					super-hands="colliderEvent: raycaster-intersection;
 					   colliderEventProperty: els;
 					   colliderEndEvent:raycaster-intersection-cleared;
 					   colliderEndEventProperty: clearedEls;">
@@ -130,7 +129,7 @@
 
 				<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
      			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
-	      	</a-entity> -->
+	      	</a-entity>
 
 			<!-- <a-entity id="player" kinema-body="radius: 0.25;" movement-controls="fly: false" position="0 0 9" rotation="0 0 0" gamepad-controls="" trackpad-controls="" keyboard-controls="" touch-controls="">
         		<a-entity camera position="0 1.6 0" look-controls
@@ -148,7 +147,7 @@
         		<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
       		</a-entity> -->
 
-			<a-entity movement-controls="fly: true" position="0 0 9" rotation="0 0 0">
+			<!-- <a-entity movement-controls="fly: true" position="0 0 9" rotation="0 0 0">
         <a-entity camera position="0 1.6 0" look-controls wasd-controls
                   capture-mouse
                   raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
@@ -159,7 +158,7 @@
                                colliderEndEventProperty: clearedEls;"></a-entity>
         <a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
         <a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
-      </a-entity>
+      </a-entity> -->
 
 			<!-- Sky -->
 			<a-sky src="#sky"></a-sky>
