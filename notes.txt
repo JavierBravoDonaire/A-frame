@@ -19,15 +19,17 @@ Fase 0:
 
 Fase 1:
 	(CURRENT PHASE)
-	El objetivo de esta fase es conseguir un panel con distintos botones,
-	los cuales pulsando sobre ellos, aparezca una entidad diferente.
-	De momento, sobre el botón aparecerá el nombre de la entidad, pero
-	en un futuro se cambiará por una imagen.
-	Además, si se pone el cursor encima del botón, este cambiará de color y
-	al salir se volverá al color. (esta opción es temporal, ya que al añadir
-	la imagen no será necesario).
-	Para la creación de cada entidad, crearé una función en javascript
-	que reciba de argumento la posición del objeto para hacer que el código sea
-	lo más limpio posible.
-	Una vez conseguido lo anterior, dotaré a las entidades del atributo
-	grabbable para que el usuario pueda mover a placer el objeto.
+		El objetivo de esta fase es conseguir un panel con distintos botones,
+		los cuales pulsando sobre ellos, aparezca una entidad diferente.
+		De momento, sobre el botón aparecerá el nombre de la entidad, pero
+		en un futuro se cambiará por una imagen.
+		Además, si se pone el cursor encima del botón, este cambiará de color y
+		al salir se volverá al color. (esta opción es temporal, ya que al añadir
+		la imagen no será necesario).
+		Para la creación de cada entidad, crearé una función en javascript
+		que reciba de argumento la posición del objeto para hacer que el código sea
+		lo más limpio posible.
+		Una vez conseguido lo anterior, dotaré a las entidades del atributo
+		grabbable para que el usuario pueda mover a placer el objeto.
+	-- New Features:
+		

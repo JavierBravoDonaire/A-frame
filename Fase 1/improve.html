@@ -10,52 +10,7 @@
 		<script src="../assets/js/kinema.js"></script>
 		<script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
 		<script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
-		<script>
-			AFRAME.registerComponent('editable', {
-				init: function () {
-					let el = this.el;
-					let data = this.data;
-
-					this.el.addEventListener('grab-start', function() {
-						console.log("grabbed");
-
-						let editTable = document.createElement('a-entity');
-
-						editTable.setAttribute('geometry', {primitive: 'plane', width: 1, height: 0.5});
-						editTable.setAttribute('strechable', {});
-						editTable.setAttribute('class', "editTable");
-						editTable.setAttribute('position', "1.5 0 0");
-
-						let button = document.createElement('a-entity');
-    					button.setAttribute('button', {});
-    					button.setAttribute('position', {x:-0.3, y: 0.1, z: 0.01});
-    					editTable.appendChild(button);
-
-						el.appendChild(editTable);
-					});
-				}
-			});
-
-			AFRAME.registerComponent('button', {
-				  init: function () {
-				    let el = this.el;
-
-				    let button = document.createElement('a-entity');
-				    button.setAttribute('geometry', {primitive: 'box',
-				                                     width: 0.1, height: 0.1, depth: 0.025});
-				    button.setAttribute('material', {color: 'red'});
-				    button.setAttribute('clickable', {});
-				    button.classList.add("button");
-
-				    button.addEventListener('grab-start', (e) => {
-				      console.log("Grab-start!");
-				      button.setAttribute('material',  {color: 'green'});
-				    });
-
-				    el.appendChild(button);
-				  }
-				});
-		</script>
+		<script src="improve.js"></script>
 	</head>
 	<body>
 		<a-scene>
@@ -112,7 +67,7 @@
 				animation="property: position; dur: 2500; to: -0.5 1.5 5.75; dir: alternate; loop: true"></a-sphere>
 
 
-			<a-box id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="yellow" grabbable stretchable kinema-body></a-box>
+			<a-box id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="yellow" grabbable stretchable kinema-body="radius: 0.5"></a-box>
 
 
 			<!-- User Camera -->
@@ -130,22 +85,6 @@
 				<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
      			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
 	      	</a-entity>
-
-			<!-- <a-entity id="player" kinema-body="radius: 0.25;" movement-controls="fly: false" position="0 0 9" rotation="0 0 0" gamepad-controls="" trackpad-controls="" keyboard-controls="" touch-controls="">
-        		<a-entity camera position="0 1.6 0" look-controls
-                  		capture-mouse
-                  		raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
-                  		static-body
-                  		super-hands="colliderEvent: raycaster-intersection;
-                               colliderEventProperty: els;
-                               colliderEndEvent:raycaster-intersection-cleared;
-                               colliderEndEventProperty: clearedEls;">
-				</a-entity>
-				<a-cylinder position="0 0.5 0" height="1" radius="0.8" color="green"></a-cylinder>
-
-        		<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
-        		<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
-      		</a-entity> -->
 
 			<!-- <a-entity movement-controls="fly: true" position="0 0 9" rotation="0 0 0">
         <a-entity camera position="0 1.6 0" look-controls wasd-controls
@@ -225,32 +164,6 @@
 			holoBoxEl.addEventListener('grab-start', function() {
 				createEl("box", getNewPosition());
 			});
-
-			//
-			// // Router Button Events
-			// buttonRouterEl.addEventListener('grab-start', function() {
-			// 	buttonRouterEl.setAttribute('color', '#707B7C');
-			// 	createEl("router",'-3 0.25 -4');
-			// });
-			// buttonRouterEl.addEventListener('grab-end', function() {
-			// 	buttonRouterEl.setAttribute('color', 'black');
-			// });
-			// // Sphere Button Events
-			// buttonSphereEl.addEventListener('grab-start', function() {
-			// 	buttonSphereEl.setAttribute('color', 'red');
-			// 	createEl("sphere",'-5 0.5 -4');
-			// });
-			// buttonSphereEl.addEventListener('grab-end', function() {
-			// 	buttonSphereEl.setAttribute('color', 'black');
-			// });
-			// // Box Button Events
-			// buttonBoxEl.addEventListener('grab-start', function() {
-			// 	buttonBoxEl.setAttribute('color', 'blue');
-			// 	createEl("box",'-7 0.5 -4');
-			// });
-			// buttonBoxEl.addEventListener('grab-end', function() {
-			// 	buttonBoxEl.setAttribute('color', 'black');
-			// });
 		</script>
 	</body>
 </html>
