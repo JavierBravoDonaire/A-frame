@@ -1,3 +1,45 @@
+function createEl(entity, position) {
+	var newEl = document.createElement('a-entity');
+
+	newEl.setAttribute('position', position);
+	newEl.setAttribute('editable', {});
+	newEl.setAttribute('static-body', '');
+	newEl.setAttribute('class', entity + " remote");
+
+	switch(entity) {
+		case "cylinder":
+			newEl.setAttribute('mixin', 'cylinder');
+			newEl.setAttribute('material', {color: '#707B7C'});
+			break;
+		case "sphere":
+			newEl.setAttribute('mixin', 'sphere');
+			newEl.setAttribute('material', {color: 'red'});
+			break;
+		case "box":
+			newEl.setAttribute('mixin', 'box');
+			newEl.setAttribute('material', {color: 'blue'});
+			break;
+		default:
+			newEl.setAttribute('scale', '0 0 0');
+			newEl.setAttribute('position', position);
+	}
+
+	sceneEl.appendChild(newEl);
+}
+
+function getNewPosition(){
+	var x = playerEl.getAttribute('position').x;
+	var y = playerEl.getAttribute('position').y;
+	var z = playerEl.getAttribute('position').z;
+
+	if(z < 0){
+		z = z+1;
+	}else{
+		z = z-1;
+	}
+	return ((x+0.25) + " " + (y+1.5) + " " + (z));
+}
+
 AFRAME.registerComponent('editable', {
 	schema: {
 		active: {type: 'boolean', default: false},
@@ -75,6 +117,7 @@ AFRAME.registerComponent('editable', {
 				editTable.appendChild(exitButton);
 
 				el.appendChild(editTable);
+				event.stopPropagation();
 			}
 		});
 	}
@@ -88,6 +131,7 @@ AFRAME.registerComponent('button', {
 			let entity = el.parentNode.parentNode;
 
 			entity.setAttribute('material', el.getAttribute('material'));
+			event.stopPropagation();
 		});
 	}
 });
@@ -100,11 +144,48 @@ AFRAME.registerComponent('exitbutton', {
 			let entity = el.parentNode.parentNode;
 			let table = el.parentNode;
 
+			entity.removeChild(table);
+			event.stopPropagation();
+		});
+	}
+});
 
-			console.log(table);
-			console.log(entity);
-			//entity.removeChild(table);
-			// entity.setAttribute('editable', 'active', false);
+AFRAME.registerComponent('create-table', {
+	schema: {
+		textures: {default: ["cylinder", "box", "sphere"]},
+	},
+
+	init: function () {
+		let el = this.el;
+
+		el.addEventListener('grab-start', function () {
+			var table = document.createElement('a-entity');
+			var scene = document.querySelector('a-scene');
+			var cylinder = document.createElement('a-cylinder');
+
+			table.setAttribute('id','palette');
+			table.setAttribute('position','0 0 5');
+			table.setAttribute('gltf-model','#table');
+			table.setAttribute('scale','0.02 0.02 0.02');
+			table.setAttribute('static-body','');
+
+			cylinder.setAttribute('id','cylinderHolo');
+			cylinder.setAttribute('class','holo');
+			cylinder.setAttribute('clickable',{});
+			cylinder.setAttribute('position','0.5 1.25 5.75');
+			cylinder.setAttribute('radius','0.25');
+			cylinder.setAttribute('height','0.25');
+			cylinder.setAttribute('color','#707B7C');
+			cylinder.setAttribute('transparent','true');
+			cylinder.setAttribute('opacity','0.7');
+			cylinder.setAttribute('animation','property: position; dur: 2000; to: 0.5 1.5 5.75; dir: alternate; loop: true');
+
+
+
+			scene.appendChild(table);
+			table.appendChild(cylinder);
+
+			event.stopPropagation();
 		});
 	}
 });

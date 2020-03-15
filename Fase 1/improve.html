@@ -48,30 +48,28 @@
 
 			<a-plane id="ground" position="0 0 0" rotation="-90 0 0" height="10000"
 				width="10000" src="#groundimg" repeat="800 600" static-body></a-plane>
-			<!-- <a-plane id="panel" position="0 2 -4" rotation="0 0 0" height="4"
-				width="4" src="#panelimg" static-body>
-				<a-box id="buttonRouter" clickable class="button" position="-1 1.25 0.05" height="1" width="1" depth="0.1" color="black">
-					<a-text value="Router" position="0 0 0.05" align="center"></a-text>
-				</a-box>
-				<a-box id="buttonSphere" clickable class="button" position="-1 0 0.05" height="1" width="1" depth="0.1" color="black">
-					<a-text value="Sphere" position="0 0 0.05" align="center"></a-text>
-				</a-box>
-				<a-box id="buttonBox" clickable class="button" position="-1 -1.25 0.05" height="1" width="1" depth="0.1" color="black">
-					<a-text value="Box" position="0 0 0.05" align="center"></a-text>
-				</a-box>
-			</a-plane> -->
 
-			<a-entity id="palette" position="0 0 5" gltf-model="#table" scale="0.02 0.02 0.02" rotation="0 0 0" static-body></a-entity>
+			<a-plane id="panel" position="0 2 -4" rotation="0 0 0" height="3"
+				width="2" src="#panelimg" static-body>
+				<a-box id="buttonTable" clickable class="button" position="0 0.625 0.05" height="1" width="1" depth="0.1" color="black" create-table>
+					<a-text value="Table" position="0 0 0.05" align="center"></a-text>
+				</a-box>
+				<a-box id="buttonPanel" clickable class="button" position="0 -0.625 0.05" height="1" width="1" depth="0.1" color="black">
+					<a-text value="Panel" position="0 0 0.05" align="center"></a-text>
+				</a-box>
+			</a-plane>
+
+			<!-- <a-entity id="palette" position="0 0 5" gltf-model="#table" scale="0.02 0.02 0.02" rotation="0 0 0" static-body></a-entity>
 
 			<a-cylinder id="cylinderHolo" class="holo" clickable position="0.5 1.25 5.75" radius="0.25" height="0.25" color="#707B7C" transparent='true' opacity=0.7
 				animation="property: position; dur: 2000; to: 0.5 1.5 5.75; dir: alternate; loop: true"></a-cylinder>
 			<a-box id="boxHolo" class="holo" clickable position="0.5 1.25 4.75" width="0.5" height="0.5" depth="0.5" color="blue" transparent='true' opacity=0.7
 				animation="property: position; dur: 1800; to: 0.5 1.5 4.75; dir: alternate; loop: true"></a-box>
 			<a-sphere id="sphereHolo" class="holo" clickable position="-0.5 1.25 5.75" radius="0.25" color="red" transparent='true' opacity=0.7
-				animation="property: position; dur: 2500; to: -0.5 1.5 5.75; dir: alternate; loop: true"></a-sphere>
+				animation="property: position; dur: 2500; to: -0.5 1.5 5.75; dir: alternate; loop: true"></a-sphere> -->
 
 
-			<a-box id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="yellow" grabbable stretchable kinema-body="radius: 0.5"></a-box>
+			<a-box id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="red" grabbable stretchable kinema-body="radius: 0.5"></a-box>
 
 
 			<!-- User Camera -->
@@ -108,7 +106,7 @@
 		</a-scene>
 
 		<script>
-			var sceneEl = document.querySelector('a-scene');
+			/*var sceneEl = document.querySelector('a-scene');
 			var playerEl = document.querySelector('#player');
 			var holoCylinderEl = document.querySelector('#cylinderHolo');
 			var holoBoxEl = document.querySelector('#boxHolo');
@@ -167,7 +165,7 @@
 			// Box Holo Events
 			holoBoxEl.addEventListener('grab-start', function() {
 				createEl("box", getNewPosition());
-			});
+			});*/
 		</script>
 	</body>
 </html>
