@@ -162,13 +162,15 @@ AFRAME.registerComponent('create-table', {
 			var table = document.createElement('a-entity');
 			var scene = document.querySelector('a-scene');
 			var cylinder = document.createElement('a-cylinder');
+			var box = document.createElement('a-box');
+			var sphere = document.createElement('a-sphere');
 
 			table.setAttribute('id','palette');
 			table.setAttribute('position','0 0 5');
 			table.setAttribute('gltf-model','#table');
 			table.setAttribute('scale','0.02 0.02 0.02');
 			table.setAttribute('static-body','');
-
+			// Cilindro
 			cylinder.setAttribute('id','cylinderHolo');
 			cylinder.setAttribute('class','holo');
 			cylinder.setAttribute('clickable',{});
@@ -179,11 +181,72 @@ AFRAME.registerComponent('create-table', {
 			cylinder.setAttribute('transparent','true');
 			cylinder.setAttribute('opacity','0.7');
 			cylinder.setAttribute('animation','property: position; dur: 2000; to: 0.5 1.5 5.75; dir: alternate; loop: true');
-
-
-
+			// Cubo
+			box.setAttribute('id','boxHolo');
+			box.setAttribute('class','holo');
+			box.setAttribute('clickable',{});
+			box.setAttribute('position','0.5 1.25 4.75');
+			box.setAttribute('width','0.5');
+			box.setAttribute('height','0.5');
+			box.setAttribute('depth','0.5');
+			box.setAttribute('color','blue');
+			box.setAttribute('transparent','true');
+			box.setAttribute('opacity','0.7');
+			box.setAttribute('animation','property: position; dur: 1800; to: 0.5 1.5 4.75; dir: alternate; loop: true');
+			// Esfera
+			sphere.setAttribute('id','sphereHolo');
+			sphere.setAttribute('class','holo');
+			sphere.setAttribute('clickable',{});
+			sphere.setAttribute('position',"-0.5 1.25 5.75");
+			sphere.setAttribute('radius','0.25');
+			sphere.setAttribute('color','red');
+			sphere.setAttribute('transparent','true');
+			sphere.setAttribute('opacity','0.7');
+			sphere.setAttribute('animation','property: position; dur: 2500; to: -0.5 1.5 5.75; dir: alternate; loop: true');
+			// Añado a la escena
 			scene.appendChild(table);
-			table.appendChild(cylinder);
+			scene.appendChild(cylinder);
+			scene.appendChild(box);
+			scene.appendChild(sphere);
+
+			event.stopPropagation();
+		});
+	}
+});
+
+AFRAME.registerComponent('create-panel', {
+	schema: {
+		entities: {default: ["cylinder", "box", "sphere"]},
+	},
+
+	init: function () {
+		let el = this.el;
+		let data = this.data;
+
+		el.addEventListener('grab-start', function () {
+			var panel = document.createElement('a-plane');
+			var scene = document.querySelector('a-scene');
+
+			panel.setAttribute('id','panel');
+			panel.setAttribute('position',"4 2 -4");
+			panel.setAttribute('color',"grey");
+			panel.setAttribute('height','3');
+			panel.setAttribute('width','2');
+			panel.setAttribute('static-body','');
+
+			let entities = data.entities;
+			for (let entity of entities){
+				let button = document.createElement('a-entity');
+				button.setAttribute('geometry', {primitive: 'box',
+									width: 1, height: 1, depth: 0.025});
+				button.setAttribute('id', "botton" + entity);
+				button.setAttribute('class', 'remote');
+				button.setAttribute('position', "0.3 " + ((entities.indexOf(entity)*0.2)-0.3)+" 0.01");
+				button.setAttribute('material', "color: black");
+				button.setAttribute('clickable', {});
+				panel.appendChild(button);
+			}
+			scene.appendChild(panel);
 
 			event.stopPropagation();
 		});

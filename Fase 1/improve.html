@@ -10,7 +10,7 @@
 		<script src="../assets/js/kinema.js"></script>
 		<script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
 		<script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
-		<script src="improve.js"></script>
+		<script src="./improve.js"></script>
 	</head>
 	<body>
 		<a-scene>
@@ -54,7 +54,7 @@
 				<a-box id="buttonTable" clickable class="button" position="0 0.625 0.05" height="1" width="1" depth="0.1" color="black" create-table>
 					<a-text value="Table" position="0 0 0.05" align="center"></a-text>
 				</a-box>
-				<a-box id="buttonPanel" clickable class="button" position="0 -0.625 0.05" height="1" width="1" depth="0.1" color="black">
+				<a-box id="buttonPanel" clickable class="button" position="0 -0.625 0.05" height="1" width="1" depth="0.1" color="black" create-panel>
 					<a-text value="Panel" position="0 0 0.05" align="center"></a-text>
 				</a-box>
 			</a-plane>
@@ -69,7 +69,7 @@
 				animation="property: position; dur: 2500; to: -0.5 1.5 5.75; dir: alternate; loop: true"></a-sphere> -->
 
 
-			<a-box id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="red" grabbable stretchable kinema-body="radius: 0.5"></a-box>
+			<a-box id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="blue" grabbable stretchable kinema-body="radius: 0.5"></a-box>
 
 
 			<!-- User Camera -->
