@@ -1,7 +1,7 @@
 function createEl(entity, position) {
 	var newEl = document.createElement('a-entity');
 
-	newEl.setAttribute('position', position);
+	newEl.setAttribute('position', "-3 1 -4");
 	newEl.setAttribute('editable', {});
 	newEl.setAttribute('static-body', '');
 	newEl.setAttribute('class', entity + " remote");
@@ -40,6 +40,59 @@ function getNewPosition(){
 	return ((x+0.25) + " " + (y+1.5) + " " + (z));
 }
 
+function setHolos(){
+	var holoCylinderEl = document.querySelector('#cylinderHolo');
+	var holoBoxEl = document.querySelector('#boxHolo');
+	var holoSphereEl = document.querySelector('#sphereHolo');
+
+
+	// Sphere Holo Events
+	holoSphereEl.addEventListener('grab-start', function() {
+		createEl("sphere", getNewPosition());
+	});
+	// Cylinder Holo Events
+	holoCylinderEl.addEventListener('grab-start', function() {
+		createEl("cylinder", getNewPosition());
+	});
+	// Box Holo Events
+	holoBoxEl.addEventListener('grab-start', function() {
+		createEl("box", getNewPosition());
+	});
+}
+
+function setButtons(){
+	var buttonCylinderEl = document.querySelector('#buttonCylinder');
+	var buttonBoxEl = document.querySelector('#buttonBox');
+	var buttonSphereEl = document.querySelector('#buttonSphere');
+
+
+	// Sphere Holo Events
+	buttonSphereEl.addEventListener('grab-start', function() {
+		createEl("sphere", getNewPosition());
+	});
+	// Cylinder Holo Events
+	buttonCylinderEl.addEventListener('grab-start', function() {
+		createEl("cylinder", getNewPosition());
+	});
+	// Box Holo Events
+	buttonBoxEl.addEventListener('grab-start', function() {
+		createEl("box", getNewPosition());
+	});
+}
+
+function createButtonText(entity, button){
+	let text = document.createElement('a-text');
+
+	text.setAttribute('position', "0 0 0.05");
+	text.setAttribute('align', "center");
+	text.setAttribute('value', entity);
+	text.setAttribute('width', '2');
+	text.setAttribute('height', '2');
+	text.setAttribute('color', 'black');
+
+	button.appendChild(text);
+}
+
 AFRAME.registerComponent('editable', {
 	schema: {
 		active: {type: 'boolean', default: false},
@@ -52,8 +105,6 @@ AFRAME.registerComponent('editable', {
 		let data = this.data;
 
 		this.el.addEventListener('grab-start', function() {
-
-			console.log("entra");
 
 			if(data.active === false){
 				data.active = true;
@@ -142,9 +193,9 @@ AFRAME.registerComponent('exitbutton', {
 
 		el.addEventListener('grab-start', function() {
 			let entity = el.parentNode.parentNode;
-			let table = el.parentNode;
+			let table = el;
 
-			entity.removeChild(table);
+			table.parentNode.removeChild(table);
 			event.stopPropagation();
 		});
 	}
@@ -209,6 +260,11 @@ AFRAME.registerComponent('create-table', {
 			scene.appendChild(box);
 			scene.appendChild(sphere);
 
+			setHolos();
+
+			// Elimina la eleccion
+			//el.parentNode.parentNode.removeChild(el.parentNode);
+
 			event.stopPropagation();
 		});
 	}
@@ -216,7 +272,7 @@ AFRAME.registerComponent('create-table', {
 
 AFRAME.registerComponent('create-panel', {
 	schema: {
-		entities: {default: ["cylinder", "box", "sphere"]},
+		entities: {default: ["Cylinder", "Box", "Sphere"]},
 	},
 
 	init: function () {
@@ -230,23 +286,33 @@ AFRAME.registerComponent('create-panel', {
 			panel.setAttribute('id','panel');
 			panel.setAttribute('position',"4 2 -4");
 			panel.setAttribute('color',"grey");
-			panel.setAttribute('height','3');
-			panel.setAttribute('width','2');
+			panel.setAttribute('height','1');
+			panel.setAttribute('width','4');
 			panel.setAttribute('static-body','');
 
+			let color = ['blue', 'white', 'red'];
 			let entities = data.entities;
+			let i = 0;
 			for (let entity of entities){
 				let button = document.createElement('a-entity');
 				button.setAttribute('geometry', {primitive: 'box',
-									width: 1, height: 1, depth: 0.025});
-				button.setAttribute('id', "botton" + entity);
+									width: 0.5, height: 0.5, depth: 0.025});
+				button.setAttribute('id', "button" + entity);
 				button.setAttribute('class', 'remote');
-				button.setAttribute('position', "0.3 " + ((entities.indexOf(entity)*0.2)-0.3)+" 0.01");
-				button.setAttribute('material', "color: black");
+				button.setAttribute('position', ((entities.indexOf(entity)*0.3)-0.3) + ((entities.indexOf(entity)*0.3)-0.3)+" 0.01");
+				button.setAttribute('material', "color:" + color[i]);
 				button.setAttribute('clickable', {});
+				createButtonText(entity, button);
 				panel.appendChild(button);
+
+				i++;
 			}
 			scene.appendChild(panel);
+
+			setButtons();
+
+			// Elimina la eleccion
+			//el.parentNode.parentNode.removeChild(el.parentNode);
 
 			event.stopPropagation();
 		});

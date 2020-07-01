@@ -44,6 +44,7 @@
 			 		 event-set__dragoff="_event: dragover-end; material.wireframe: false"></a-mixin>
 
 				<a-asset-item id="table" src="../assets/3d/table/scene.gltf"></a-asset-item>
+				<a-asset-item id="base" src="../assets/3d/base/scene.gltf"></a-asset-item>
 			</a-assets>
 
 			<a-plane id="ground" position="0 0 0" rotation="-90 0 0" height="10000"
@@ -58,6 +59,8 @@
 					<a-text value="Panel" position="0 0 0.05" align="center"></a-text>
 				</a-box>
 			</a-plane>
+
+			<a-entity id="baseEntity" position="-3 0 -4" gltf-model="#base" scale="0.5 0.5 0.5" rotation="0 0 0" static-body></a-entity>
 
 			<!-- <a-entity id="palette" position="0 0 5" gltf-model="#table" scale="0.02 0.02 0.02" rotation="0 0 0" static-body></a-entity>
 
@@ -106,13 +109,13 @@
 		</a-scene>
 
 		<script>
-			/*var sceneEl = document.querySelector('a-scene');
+			var sceneEl = document.querySelector('a-scene');
 			var playerEl = document.querySelector('#player');
-			var holoCylinderEl = document.querySelector('#cylinderHolo');
+			/*var holoCylinderEl = document.querySelector('#cylinderHolo');
 			var holoBoxEl = document.querySelector('#boxHolo');
-			var holoSphereEl = document.querySelector('#sphereHolo');
+			var holoSphereEl = document.querySelector('#sphereHolo');*/
 
-			function createEl(entity, position) {
+			/*function createEl(entity, position) {
 				var newEl = document.createElement('a-entity');
 
 				newEl.setAttribute('position', position);
@@ -139,9 +142,9 @@
 				}
 
 				sceneEl.appendChild(newEl);
-			}
+			}*/
 
-			function getNewPosition(){
+			/*function getNewPosition(){
 				var x = playerEl.getAttribute('position').x;
 				var y = playerEl.getAttribute('position').y;
 				var z = playerEl.getAttribute('position').z;
@@ -152,8 +155,9 @@
 					z = z-1;
 				}
 				return ((x+0.25) + " " + (y+1.5) + " " + (z));
-			}
+			}*/
 
+/*
 			// Sphere Holo Events
 			holoSphereEl.addEventListener('grab-start', function() {
 				createEl("sphere", getNewPosition());
