@@ -18,7 +18,6 @@ Fase 0:
 		- Funcionalidad de reinicio al caer con javascript.
 
 Fase 1:
-	(CURRENT PHASE)
 		El objetivo de esta fase es conseguir un panel con distintos botones,
 		los cuales pulsando sobre ellos, aparezca una entidad diferente.
 		De momento, sobre el botón aparecerá el nombre de la entidad, pero
@@ -31,5 +30,18 @@ Fase 1:
 		lo más limpio posible.
 		Una vez conseguido lo anterior, dotaré a las entidades del atributo
 		grabbable para que el usuario pueda mover a placer el objeto.
-	-- New Features:
-		
+	(1/07/2020)
+		Terminados tanto el panel como la mesa con las entidades. Se ha añadido
+		una base en la que aparecerán las entidades al seleccionarlas.
+		- Errores: falta solucionar un error por el cual al borrar entidades
+		se pierden las funcionalidades de movimiento de todas las demás entidades.
+
+
+Sprint 1: (CURRENT PHASE)
+		El objetivo de esta fase es crear una funcionalidad por la cual,
+		en el podium que tenemos al lado del panel de selección aparezca una
+		entidad. Pulsando los distintos botones esta entidad cambiará de
+		forma, color y tamaño.
+	(12/07/2020)
+		Terminados tanto el cambio de color como el cambio de figura.
+		Falta añadir la barra de tamaño y la movilidad de la entidad.
