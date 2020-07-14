@@ -45,3 +45,8 @@ Sprint 1: (CURRENT PHASE)
 	(12/07/2020)
 		Terminados tanto el cambio de color como el cambio de figura.
 		Falta añadir la barra de tamaño y la movilidad de la entidad.
+	(14/07/2020)
+		Añadida barra de tamaño que permite aumentar y disminuir el tamaño
+		de la entidad que se encuentra en el podium. El proximo paso será añadir
+		movilidad a la entidad del podium y a su vez que se cree una nueva en el
+		podium para poder crear infinitas.

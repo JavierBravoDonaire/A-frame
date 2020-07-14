@@ -49,6 +49,9 @@ function getNewPosition(){
 function changeColor(color){
 	var podiumEntity = document.querySelector("#podiumEntity");
 
+	if(color === 'white'){
+		podiumEntity.removeAttribute('material');
+	}
 	podiumEntity.setAttribute('material', "color:" + color);
 }
 
@@ -146,6 +149,30 @@ function createButtonText(entity, button){
 	text.setAttribute('color', 'black');
 
 	button.appendChild(text);
+}
+
+function sliderText(slider){
+	let text = document.createElement('a-text');
+
+	text.setAttribute('position', "0 0.75 0.05");
+	text.setAttribute('align', "center");
+	text.setAttribute('value', 'Range Slider');
+	text.setAttribute('width', '8');
+	text.setAttribute('height', '8');
+	text.setAttribute('font', 'kelsonsans');
+	text.setAttribute('color', 'black');
+
+	slider.appendChild(text);
+}
+
+function sliderAction(evt) {
+	var entity = document.querySelector('#podiumEntity');
+
+	if(evt.detail.intersection.point.x >= 0){
+		evt.detail.intersection.point.x = evt.detail.intersection.point.x*2;
+	}
+
+	entity.setAttribute('scale', (2+evt.detail.intersection.point.x) + " " +(2+evt.detail.intersection.point.x) + " " +(2+evt.detail.intersection.point.x));
 }
 
 AFRAME.registerComponent('editable', {
@@ -386,6 +413,24 @@ AFRAME.registerComponent('create-panel', {
 			scene.appendChild(panel);
 
 			setButtons();
+
+			// Crea Range Slider
+			let slider = document.createElement('a-gui-slider');
+			slider.setAttribute('id', "slider");
+			slider.setAttribute('class', "remote");
+			slider.setAttribute('width', "2.5");
+			slider.setAttribute('height', "2.2");
+			slider.setAttribute('percent', "0.5");
+			slider.setAttribute('margin', "0 0 0.05 0");
+			slider.setAttribute('gui-interactable', "");
+			slider.setAttribute('gui-item', "");
+			slider.setAttribute('gui-slider', "");
+			slider.setAttribute('position', "3 4 -4");
+			slider.setAttribute('onclick', "sliderAction");
+			sliderText(slider);
+
+			scene.appendChild(slider);
+
 
 			// Elimina la eleccion
 			//el.parentNode.parentNode.removeChild(el.parentNode);
