@@ -1,36 +1,69 @@
 function createEl(entity, position) {
-	//var newEl = document.createElement('a-entity');
 	var podiumEntity = document.querySelector("#podiumEntity");
+	var podium = podiumEntity.parentNode;
+	var scale = podiumEntity.getAttribute("scale");
+	var colour = podiumEntity.getAttribute("color");
+	var material = podiumEntity.getAttribute("material");
 
-	podiumEntity.removeAttribute('class');
+	/*podiumEntity.removeAttribute('class');
 	podiumEntity.removeAttribute('mixin');
-	podiumEntity.removeAttribute('material');
-	podiumEntity.removeAttribute('static-body');
-	//newEl.setAttribute('position', "-3 1 -4");
-	//podiumEntity.setAttribute('editable', {}); PARA PODER CAMBIAR TEXTURA
-	podiumEntity.setAttribute('editable', {});
-	podiumEntity.setAttribute('static-body', '');
-	podiumEntity.setAttribute('class', entity + " remote");
+	podiumEntity.removeAttribute('material');*/
+	//podiumEntity.removeAttribute('static-body');
+	//podiumEntity.setAttribute('editable', {}); // PARA PODER CAMBIAR TEXTURA
+	//podiumEntity.setAttribute('static-body', '');
+	//podiumEntity.setAttribute('class', entity + " remote");
+	//podiumEntity.setAttribute('grabbable', '');
+
+	podiumEntity.parentNode.removeChild(podiumEntity);
+
+	var newEl = document.createElement('a-entity');
+	newEl.setAttribute('id', 'podiumEntity');
+	newEl.setAttribute('position', "0 2 0");
+	newEl.setAttribute('class', "remote");
+	newEl.setAttribute('editable', {});
 
 	switch(entity) {
 		case "cylinder":
-			podiumEntity.setAttribute('mixin', 'cylinder');
-			podiumEntity.setAttribute('material', {color: '#707B7C'});
+			newEl.setAttribute('mixin', 'cylinder');
+			newEl.setAttribute('material', {color: '#707B7C'});
 			break;
 		case "sphere":
-			podiumEntity.setAttribute('mixin', 'sphere');
-			podiumEntity.setAttribute('material', {color: 'red'});
+			newEl.setAttribute('mixin', 'sphere');
+			newEl.setAttribute('material', {color: 'red'});
 			break;
 		case "box":
-			podiumEntity.setAttribute('mixin', 'box');
-			podiumEntity.setAttribute('material', {color: 'blue'});
+			newEl.setAttribute('mixin', 'box');
+			newEl.setAttribute('material', {color: 'blue'});
 			break;
 		default:
-			podiumEntity.setAttribute('scale', '0 0 0');
-			podiumEntity.setAttribute('position', position);
+			newEl.setAttribute('scale', '0 0 0');
+			newEl.setAttribute('position', position);
 	}
+	newEl.setAttribute('scale', scale);
+	newEl.setAttribute('color', colour);
+	newEl.setAttribute('material', material);
 
-	//sceneEl.appendChild(newEl);
+	podium.appendChild(newEl);
+}
+
+function cloneEntity(entity){
+	var podiumEntity = document.querySelector("#podiumEntity");
+	var podium = podiumEntity.parentNode;
+	var newEl = document.createElement('a-entity');
+
+	newEl.setAttribute('id', 'podiumEntity');
+	newEl.setAttribute('position', '0 2 0');
+	newEl.setAttribute('mixin', podiumEntity.getAttribute('mixin'));
+	newEl.setAttribute('scale', podiumEntity.getAttribute('scale'));
+	newEl.setAttribute('material', podiumEntity.getAttribute('material'));
+	newEl.setAttribute('color', podiumEntity.getAttribute('color'));
+	newEl.setAttribute('class', "remote");
+	newEl.setAttribute('editable', {});
+
+	// Podium's entity changes
+	podiumEntity.removeAttribute('id');
+
+	podium.appendChild(newEl);
 }
 
 function getNewPosition(){
@@ -250,6 +283,7 @@ AFRAME.registerComponent('editable', {
 				editTable.appendChild(exitButton);
 
 				el.appendChild(editTable);
+				cloneEntity(this.el);
 				event.stopPropagation();
 			}
 		});
