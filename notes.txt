@@ -45,8 +45,19 @@ Sprint 1: (CURRENT PHASE)
 	(12/07/2020)
 		Terminados tanto el cambio de color como el cambio de figura.
 		Falta añadir la barra de tamaño y la movilidad de la entidad.
+		Para cambiar el color/textura de una entidad solo es necesario conocer
+		su id (el cual va a ser siempre EntityPodium), la entidad del podium.
+		En cambio, para cambiar de texturas se debe eliminar la entidad y crear
+		una nueva, ya que estamos usando mixin para que sea más limpio.
+		Para eliminar la entidad, conseguimos su entidad padre (que en este caso
+		será el propio podium), la eliminamos y creamos otra con el mixin
+		que se necesite dependiendo del boton pulsado.
 	(14/07/2020)
 		Añadida barra de tamaño que permite aumentar y disminuir el tamaño
-		de la entidad que se encuentra en el podium. El proximo paso será añadir
+		de la entidad que se encuentra en el podium. El próximo paso será añadir
 		movilidad a la entidad del podium y a su vez que se cree una nueva en el
 		podium para poder crear infinitas.
+	(19/07/2020)
+		Terminada la mobilidad de entidades. Podemos arrastrar una entidad fuera
+		del podium para utilizarla como queremos y ademas se crea un copia de
+		esta en el podium para poder seguir creando infinitas entidades. 
