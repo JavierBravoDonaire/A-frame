@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Improve</title>
+		<script src="../assets/js/aframe.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+		<script src="../assets/js/aframe-physics-system.min.js"></script>
+		<script src="../assets/js/super-hands.min.js"></script>
+		<script src="../assets/js/kinema.js"></script>
+		<script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+		<script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+		<script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+		<script src="https://rawgit.com/caseyyee/aframe-ui-widgets/master/dist/aframe-ui-widgets.min.js"></script>
+		<script src="./improve.js"></script>
+	</head>
+	<body>
+		<a-scene>
+			<a-assets>
+				<img id="groundimg" src="../assets/imgs/ground.jpg">
+				<img id="panelimg" src="../assets/imgs/wall.jpg">
+				<img id="sky" src="../assets/imgs/sky.jpg">
+				<img id="diamond" src="../assets/imgs/diamond.png">
+				<img id="granito" src="../assets/imgs/granito.jpg">
+				<img id="mosaico" src="../assets/imgs/mosaico.jpg">
+				<img id="x" src="../assets/imgs/x.png">
+
+				<!-- Mixin -->
+				<a-mixin id="box" geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5"
+	                 hoverable grabbable stretchable draggable droppable
+					 shadow
+	                 event-set__dragdrop="_event: drag-drop; geometry.primitive: sphere; geometry.radius: 0.25"
+					 event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+	                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"></a-mixin>
+				<a-mixin id="sphere" geometry="primitive: sphere; radius: 0.25"
+		             hoverable grabbable stretchable draggable droppable
+					 shadow
+		             event-set__dragdrop="_event: drag-drop; geometry.primitive: cylinder; geometry.radius: 0.25; geometry.height: 0.25"
+		             event-set__dragon="_event: dragover-start; material.wireframe: true"
+		             event-set__dragoff="_event: dragover-end; material.wireframe: false"
+					 event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+	                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"></a-mixin>
+				<a-mixin id="cylinder" geometry="primitive: cylinder; height: 0.25; radius: 0.25"
+			 		 hoverable grabbable stretchable draggable droppable
+					 shadow
+			 		 event-set__dragdrop="_event: drag-drop; geometry.primitive: box; geometry.depth: 0.5; geometry.width: 0.5; geometry.height: 0.5"
+			 		 event-set__dragon="_event: dragover-start; material.wireframe: true"
+			 		 event-set__dragoff="_event: dragover-end; material.wireframe: false"
+					 event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
+	                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"></a-mixin>
+
+				<a-asset-item id="table" src="../assets/3d/table/scene.gltf"></a-asset-item>
+				<a-asset-item id="base" src="../assets/3d/base/scene.gltf"></a-asset-item>
+			</a-assets>
+
+			<a-plane id="ground" position="0 0 0" rotation="-90 0 0" height="10000"
+				width="10000" src="#groundimg" repeat="800 600" static-body></a-plane>
+
+			<a-plane id="panel" position="0 2 -4" rotation="0 0 0" height="3"
+				width="2" src="#panelimg" static-body>
+				<a-box id="buttonTable" clickable class="button" position="0 0.625 0.05" height="1" width="1" depth="0.1" color="black" create-table>
+					<a-text value="Table" position="0 0 0.05" align="center"></a-text>
+				</a-box>
+				<a-box id="buttonPanel" clickable class="button" position="0 -0.625 0.05" height="1" width="1" depth="0.1" color="black" create-panel>
+					<a-text value="Panel" position="0 0 0.05" align="center"></a-text>
+				</a-box>
+			</a-plane>
+
+			<a-entity id="baseEntity" position="-3 0 -4" gltf-model="#base" scale="0.5 0.5 0.5" rotation="0 0 0" static-body>
+				<a-entity id="podiumEntity" mixin="box" class="remote" position="0 2 0" scale="2 2 2" editable></a-entity>
+			</a-entity>
+
+			<a-box id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="red" grabbable stretchable kinema-body="radius: 0.5" scale="2 2 2"></a-box>
+
+
+			<!-- User Camera -->
+			<a-entity id="player" movement-controls="fly: true" position="0 0 9" look-controls
+				progressive-controls="objects: [grabbable], [droppable], [clickable];">
+	        	<a-entity camera position="0 1.7 0" capture-mouse
+					raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
+					static-body
+					super-hands="colliderEvent: raycaster-intersection;
+					   colliderEventProperty: els;
+					   colliderEndEvent:raycaster-intersection-cleared;
+					   colliderEndEventProperty: clearedEls;">
+				</a-entity>
+
+				<!--<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
+     			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>-->
+				<a-entity laser-controls="hand: right" raycaster="objects: .remote; far: 5" line="color: blue; opacity: 0.75"></a-entity>
+				<a-entity laser-controls="hand: left" raycaster="objects: .remote; far: 5" line="color: red; opacity: 0.75"></a-entity>
+	      	</a-entity>
+
+			<!-- Sky -->
+			<a-sky src="#sky"></a-sky>
+		</a-scene>
+
+		<script>
+			var sceneEl = document.querySelector('a-scene');
+			var playerEl = document.querySelector('#player');
+			var barra = document.querySelector('#slider');
+		</script>
+	</body>
+</html>
