@@ -70,11 +70,11 @@
 				<a-entity id="podiumEntity" mixin="box" class="remote" position="0 2 0" scale="2 2 2" editable></a-entity>
 			</a-entity>
 
-			<a-box id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="red" grabbable stretchable kinema-body="radius: 0.5" scale="2 2 2"></a-box>
+			<a-box id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="blue" grabbable stretchable kinema-body="radius: 0.5" scale="2 2 2"></a-box>
 
 
 			<!-- User Camera -->
-			<a-entity id="player" movement-controls="fly: true" position="0 0 9" look-controls
+			<!--<a-entity id="player" movement-controls="fly: true" position="0 0 9" look-controls
 				progressive-controls="objects: [grabbable], [droppable], [clickable];">
 	        	<a-entity camera position="0 1.7 0" capture-mouse
 					raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
@@ -83,15 +83,19 @@
 					   colliderEventProperty: els;
 					   colliderEndEvent:raycaster-intersection-cleared;
 					   colliderEndEventProperty: clearedEls;">
-				</a-entity>
+				</a-entity>-->
 
 				<!--<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
      			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>-->
-				<a-entity id="lefthand" oculus-touch-controls="hand: left"></a-entity>
-				<a-entity id="righthand" oculus-touch-controls="hand: right"></a-entity>
-				<a-entity laser-controls="hand: right" raycaster="objects: .remote; far: 5" line="color: blue; opacity: 0.75"></a-entity>
-				<a-entity laser-controls="hand: left" raycaster="objects: .remote; far: 5" line="color: red; opacity: 0.75"></a-entity>
-	      	</a-entity>
+			<a-entity id="player" movement-controls="fly: true" position="0 0 9">
+				<a-entity camera position="0 1.7 0"
+				raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse">
+					<a-entity id="lefthand" oculus-touch-controls="hand: left"></a-entity>
+					<a-entity id="righthand" oculus-touch-controls="hand: right"></a-entity>
+				</a-entity>
+			</a-entity>
+				<!--<a-entity laser-controls="hand: right" raycaster="objects: .remote; far: 5" line="color: blue; opacity: 0.75"></a-entity>
+				<a-entity laser-controls="hand: left" raycaster="objects: .remote; far: 5" line="color: red; opacity: 0.75"></a-entity>-->
 
 			<!-- Sky -->
 			<a-sky src="#sky"></a-sky>
