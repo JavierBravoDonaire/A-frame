@@ -87,8 +87,8 @@
 
 				<!--<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
      			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>-->
-				<a-entity oculus-touch-controls="hand: left"></a-entity>
-				<a-entity oculus-touch-controls="hand: right"></a-entity>
+				<a-entity id="lefthand" oculus-touch-controls="hand: left"></a-entity>
+				<a-entity id="righthand" oculus-touch-controls="hand: right"></a-entity>
 				<a-entity laser-controls="hand: right" raycaster="objects: .remote; far: 5" line="color: blue; opacity: 0.75"></a-entity>
 				<a-entity laser-controls="hand: left" raycaster="objects: .remote; far: 5" line="color: red; opacity: 0.75"></a-entity>
 	      	</a-entity>
@@ -101,6 +101,11 @@
 			var sceneEl = document.querySelector('a-scene');
 			var playerEl = document.querySelector('#player');
 			var barra = document.querySelector('#slider');
+			var lefthand = document.querySelector('#lefthand');
+
+			lefthand.addEventListener('bbuttontouchend', function(){
+				document.querySelector('a-scene').exitVR();
+			});
 		</script>
 	</body>
 </html>
