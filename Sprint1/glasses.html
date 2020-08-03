@@ -72,7 +72,7 @@
 				<a-entity id="podiumEntity" mixin="box" class="remote" position="0 2 0" scale="2 2 2" editable></a-entity>
 			</a-entity>
 
-			<a-box id="caja" class="remote" position="0 2 0" width="0.5" height="0.5" depth="0.5" color="yellow" grabbable stretchable dynamic-body scale="2 2 2"></a-box>
+			<a-box id="caja" class="remote" position="0 2 0" width="0.25" height="0.25" depth="0.25" color="red" grabbable stretchable dynamic-body scale="2 2 2"></a-box>
 
 
 			<!-- User Camera -->
@@ -99,9 +99,9 @@
 					   		 colliderEndEvent:raycaster-intersection-cleared;
 					   	 	 colliderEndEventProperty: clearedEls;">
 				</a-entity>
-				<a-cylinder position="0 0.5 0" height="1" radius="0.1" color="green"></a-cylinder>
-				<a-obj-model id="lh" src="#lefthand" oculus-touch-controls="hand: left" laser-controls="hand: left" raycaster="objects: .remote, .button; far: 5" line="color: red; opacity: 0.75"></a-obj-model>
-				<a-obj-model id="rh" src="#righthand" oculus-touch-controls="hand: right" laser-controls="hand: right" raycaster="objects: .remote, .button; far: 5" line="color: blue; opacity: 0.75"></a-obj-model>
+				<a-cylinder position="0 0.5 0" height="1.7" radius="0.1" color="green"></a-cylinder>
+				<a-obj-model id="lh" src="#lefthand" oculus-touch-controls="hand: left" laser-controls="hand: left" raycaster="objects: .remote, .button; far: 7" line="color: red; opacity: 0.75"></a-obj-model>
+				<a-obj-model id="rh" src="#righthand" oculus-touch-controls="hand: right" laser-controls="hand: right" raycaster="objects: .remote, .button; far: 7" line="color: blue; opacity: 0.75"></a-obj-model>
 				<!--<a-entity position="0 1.6 0" sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
 				<a-entity position="0 1.6 0" sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>-->
 			</a-entity>
@@ -123,13 +123,14 @@
 
 			lefthand.addEventListener('bbuttontouchend', function(){
 				document.querySelector('a-scene').exitVR();
+				console.log("ESTOY DANDO A LA B YEEES");
 			});
 
 			panelbutton.addEventListener('raycaster-intersection', function () {
-      			panelbutton.setAttribute('material', "opacity: 0.5");
+      			panelbutton.setAttribute('color', "blue");
     		});
 			panelbutton.addEventListener('raycaster-intersection-cleared', function () {
-      			panelbutton.setAttribute('material', "opacity: 1");
+      			panelbutton.setAttribute('color', "black");
     		});
 		</script>
 	</body>
