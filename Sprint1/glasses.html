@@ -70,7 +70,7 @@
 				<a-entity id="podiumEntity" mixin="box" class="remote" position="0 2 0" scale="2 2 2" editable></a-entity>
 			</a-entity>
 
-			<a-box id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="red" grabbable stretchable kinema-body="radius: 0.5" scale="2 2 2"></a-box>
+			<a-box id="caja" class="remote" position="0 2 0" width="0.5" height="0.5" depth="0.5" color="red" grabbable stretchable dynamic-body scale="2 2 2"></a-box>
 
 
 			<!-- User Camera -->
@@ -87,8 +87,9 @@
 
 				<!--<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
      			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>-->
-			<a-entity id="player" position="0 0 5" movement-controls="fly: false" look-controls gamepad-controls>
+			<a-entity id="player" kinema-body="radius: 0.8;" position="0 0 5" movement-controls="fly: false" look-controls  gamepad-controls="" trackpad-controls="" keyboard-controls="" touch-controls="">
 				<a-entity camera position="0 1.6 0"
+				capture-mouse
 				static-body
 				raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
 				super-hands="colliderEvent: raycaster-intersection;
@@ -97,8 +98,8 @@
 					   	 	 colliderEndEventProperty: clearedEls;">
 				</a-entity>
 				<a-cylinder position="0 0.5 0" height="1" radius="0.5" color="green"></a-cylinder>
-				<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
-				<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
+				<a-entity position="0 1.6 0" sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
+				<a-entity position="0 1.6 0" sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>
 			</a-entity>
 				<!--<a-entity id="lefthand" oculus-touch-controls="hand: left"></a-entity>
 				<a-entity id="righthand" oculus-touch-controls="hand: right"></a-entity>-->
