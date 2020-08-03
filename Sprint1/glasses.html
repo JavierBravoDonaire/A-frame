@@ -72,7 +72,7 @@
 				<a-entity id="podiumEntity" mixin="box" class="remote" position="0 2 0" scale="2 2 2" editable></a-entity>
 			</a-entity>
 
-			<a-box id="caja" class="remote" position="0 2 0" width="0.5" height="0.5" depth="0.5" color="blue" grabbable stretchable dynamic-body scale="2 2 2"></a-box>
+			<a-box id="caja" class="remote" position="0 2 0" width="0.5" height="0.5" depth="0.5" color="yellow" grabbable stretchable dynamic-body scale="2 2 2"></a-box>
 
 
 			<!-- User Camera -->
@@ -90,7 +90,7 @@
 				<!--<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
      			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>-->
 			<a-entity id="player" kinema-body="radius: 0.8;" position="0 0 5" movement-controls="fly: false"gamepad-controls="" trackpad-controls="" keyboard-controls="" touch-controls="">
-				<a-entity camera position="0 1.6 0" look-controls
+				<a-entity camera position="0 2.5 0" look-controls
 				capture-mouse
 				static-body
 				raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
@@ -99,9 +99,9 @@
 					   		 colliderEndEvent:raycaster-intersection-cleared;
 					   	 	 colliderEndEventProperty: clearedEls;">
 				</a-entity>
-				<a-cylinder position="0 0.5 0" height="1" radius="0.5" color="green"></a-cylinder>
+				<a-cylinder position="0 0.5 0" height="1" radius="0.1" color="green"></a-cylinder>
 				<a-obj-model src="#lefthand" oculus-touch-controls="hand: left"></a-obj-model>
-				<a-obj-model src="#righthand" oculus-touch-controls="hand: right"></a-obj-model>
+				<a-obj-model src="#righthand" oculus-touch-controls="hand: right" laser-controls="hand: right" raycaster="objects: .remote; far: 5" line="color: blue; opacity: 0.75"></a-obj-model>
 				<!--<a-entity position="0 1.6 0" sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
 				<a-entity position="0 1.6 0" sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>-->
 			</a-entity>
