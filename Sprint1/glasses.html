@@ -68,7 +68,7 @@
 
 			<a-plane id="panel" position="0 2 -4" rotation="0 0 0" height="3"
 				width="2" src="#panelimg" static-body>
-				<a-box id="buttonTable" clickable class="button" position="0 0.625 0.05" height="1" width="1" depth="0.1" color="black" create-table>
+				<a-box id="buttonTable" clickable grabbable class="button" position="0 0.625 0.05" height="1" width="1" depth="0.1" color="black" create-table>
 					<a-text value="Table" position="0 0 0.05" align="center"></a-text>
 				</a-box>
 				<a-box id="buttonPanel" clickable class="button" position="0 -0.625 0.05" height="1" width="1" depth="0.1" color="black" create-panel>
@@ -80,7 +80,7 @@
 				<a-entity id="podiumEntity" mixin="box" class="remote" position="0 2 0" scale="2 2 2" editable></a-entity>
 			</a-entity>
 
-			<a-box id="caja" class="remote" position="0 2 0" width="0.25" height="0.25" depth="0.25" color="blue" grabbable stretchable dynamic-body scale="2 2 2"></a-box>
+			<a-box id="caja" class="remote" position="0 2 0" width="0.25" height="0.25" depth="0.25" color="red" hoverable grabbable stretchable draggable dynamic-body scale="2 2 2"></a-box>
 
 
 			<!-- User Camera -->
