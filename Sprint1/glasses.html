@@ -8,11 +8,12 @@
 		<script src="../assets/js/aframe-physics-system.min.js"></script>
 		<script src="../assets/js/super-hands.min.js"></script>
 		<script src="../assets/js/kinema.js"></script>
-		<script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
 		<script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
 		<script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
 		<script src="https://rawgit.com/caseyyee/aframe-ui-widgets/master/dist/aframe-ui-widgets.min.js"></script>
 		<script src="./improve.js"></script>
+		<script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.1.2/dist/aframe-physics-system.min.js"></script>
+    	<script src="https://unpkg.com/aframe-event-set-component@^4.1.1/dist/aframe-event-set-component.min.js"></script>
 	</head>
 	<body>
 		<a-scene>
@@ -80,7 +81,7 @@
 				<a-entity id="podiumEntity" mixin="box" class="remote" position="0 2 0" scale="2 2 2" editable></a-entity>
 			</a-entity>
 
-			<a-box id="caja" class="remote" position="0 2 0" width="0.25" height="0.25" depth="0.25" color="black" hoverable grabbable stretchable draggable dynamic-body scale="2 2 2"></a-box>
+			<a-box id="caja" class="remote" position="0 2 0" width="0.25" height="0.25" depth="0.25" color="red" hoverable grabbable stretchable draggable dynamic-body scale="2 2 2"></a-box>
 
 
 			<!-- User Camera -->
@@ -101,20 +102,22 @@
 				<a-entity camera position="0 2.5 0" look-controls
 				capture-mouse
 				static-body
-				raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse">
+				raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
+				super-hands="colliderEvent: raycaster-intersection;
+					   		 colliderEventProperty: els;
+					   		 colliderEndEvent:raycaster-intersection-cleared;
+					   	 	 colliderEndEventProperty: clearedEls;">
 				</a-entity>
 				<a-entity id="rh" mixin="touch"
                   vive-controls="hand: right"
                   oculus-touch-controls="hand: right"
-                  windows-motion-controls="hand: right"
-				  raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse">
+                  windows-motion-controls="hand: right">
         		</a-entity>
-        		<a-obj-model id="lh" mixin="touch" src="#lefthand"
+        		<a-entity id="lh" mixin="touch"
                   vive-controls="hand: left"
                   oculus-touch-controls="hand: left"
-                  windows-motion-controls="hand: left"
-				  raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse">
-        		</a-obj-model>
+                  windows-motion-controls="hand: left">
+        		</a-entity>
 				<!--<a-cylinder position="0 0.5 0" height="1.7" radius="0.1" color="green"></a-cylinder>
 				<a-obj-model id="lh" src="#lefthand" oculus-touch-controls="hand: left"></a-obj-model>
 				<a-obj-model id="rh" src="#righthand" oculus-touch-controls="hand: right"></a-obj-model>-->
