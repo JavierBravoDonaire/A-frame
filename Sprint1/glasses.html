@@ -57,6 +57,18 @@
                               	  colliderEventProperty: els;
                               	  colliderEndEvent: collisions;
                               	  colliderEndEventProperty: clearedEls;">
+				<a-mixin id="pointer" raycaster="showLine: true; objects: .cube, .remote, .button, .holo, a-link"
+				     super-hands="colliderEvent: raycaster-intersection;
+				                  colliderEventProperty: els;
+				                  colliderEndEvent:raycaster-intersection-cleared;
+				                  colliderEndEventProperty: clearedEls;"></a-mixin>
+				<a-mixin id="controller-right" mixin="pointer"
+				     vive-controls="hand: right" oculus-touch-controls="hand: right"
+				     windows-motion-controls="hand: right"
+				     gearvr-controls daydream-controls oculus-go-controls></a-mixin>
+				<a-mixin id="controller-left" mixin="pointer"
+				     vive-controls="hand: left" oculus-touch-controls="hand: left"
+				     windows-motion-controls="hand: left"></a-mixin>
 
 				<a-asset-item id="table" src="../assets/3d/table/scene.gltf"></a-asset-item>
 				<a-asset-item id="base" src="../assets/3d/base/scene.gltf"></a-asset-item>
@@ -81,7 +93,7 @@
 				<a-entity id="podiumEntity" mixin="box" class="remote" position="0 2 0" scale="2 2 2" editable></a-entity>
 			</a-entity>
 
-			<a-box id="caja" class="remote" position="0 2 0" width="0.25" height="0.25" depth="0.25" color="red" hoverable grabbable stretchable draggable dynamic-body scale="2 2 2"></a-box>
+			<a-box id="caja" mixin="box" class="remote" position="0 2 0" color="blue" dynamic-body></a-box>
 
 
 			<!-- User Camera -->
@@ -108,16 +120,8 @@
 					   		 colliderEndEvent:raycaster-intersection-cleared;
 					   	 	 colliderEndEventProperty: clearedEls;">
 				</a-entity>
-				<a-entity id="rh" mixin="touch"
-                  vive-controls="hand: right"
-                  oculus-touch-controls="hand: right"
-                  windows-motion-controls="hand: right">
-        		</a-entity>
-        		<a-entity id="lh" mixin="touch"
-                  vive-controls="hand: left"
-                  oculus-touch-controls="hand: left"
-                  windows-motion-controls="hand: left">
-        		</a-entity>
+				<a-entity id="rh" mixin="controller-right"></a-entity>
+        		<a-entity id="lh" mixin="controller-left"></a-entity>
 				<!--<a-cylinder position="0 0.5 0" height="1.7" radius="0.1" color="green"></a-cylinder>
 				<a-obj-model id="lh" src="#lefthand" oculus-touch-controls="hand: left"></a-obj-model>
 				<a-obj-model id="rh" src="#righthand" oculus-touch-controls="hand: right"></a-obj-model>-->
