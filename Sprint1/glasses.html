@@ -80,7 +80,7 @@
 				<a-entity id="podiumEntity" mixin="box" class="remote" position="0 2 0" scale="2 2 2" editable></a-entity>
 			</a-entity>
 
-			<a-box id="caja" class="remote" position="0 2 0" width="0.25" height="0.25" depth="0.25" color="red" hoverable grabbable stretchable draggable dynamic-body scale="2 2 2"></a-box>
+			<a-box id="caja" class="remote" position="0 2 0" width="0.25" height="0.25" depth="0.25" color="black" hoverable grabbable stretchable draggable dynamic-body scale="2 2 2"></a-box>
 
 
 			<!-- User Camera -->
@@ -101,22 +101,20 @@
 				<a-entity camera position="0 2.5 0" look-controls
 				capture-mouse
 				static-body
-				raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
-				super-hands="colliderEvent: raycaster-intersection;
-					   		 colliderEventProperty: els;
-					   		 colliderEndEvent:raycaster-intersection-cleared;
-					   	 	 colliderEndEventProperty: clearedEls;">
+				raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse">
 				</a-entity>
 				<a-entity id="rh" mixin="touch"
                   vive-controls="hand: right"
                   oculus-touch-controls="hand: right"
-                  windows-motion-controls="hand: right">
+                  windows-motion-controls="hand: right"
+				  raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse">
         		</a-entity>
-        		<a-entity id="lh" mixin="touch"
+        		<a-obj-model id="lh" mixin="touch" src="#lefthand"
                   vive-controls="hand: left"
                   oculus-touch-controls="hand: left"
-                  windows-motion-controls="hand: left">
-        		</a-entity>
+                  windows-motion-controls="hand: left"
+				  raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse">
+        		</a-obj-model>
 				<!--<a-cylinder position="0 0.5 0" height="1.7" radius="0.1" color="green"></a-cylinder>
 				<a-obj-model id="lh" src="#lefthand" oculus-touch-controls="hand: left"></a-obj-model>
 				<a-obj-model id="rh" src="#righthand" oculus-touch-controls="hand: right"></a-obj-model>-->
