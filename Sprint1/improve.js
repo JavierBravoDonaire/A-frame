@@ -461,9 +461,9 @@ AFRAME.registerComponent('create-panel', {
 			slider.setAttribute('gui-slider', "");
 			slider.setAttribute('position', "3 4 -4");
 			slider.setAttribute('clickable', "");
-			slider.setAttribute('grabbable', "");
+			slider.setAttribute('hoverable', "");
 			slider.setAttribute('onclick', "sliderAction");
-			slider.setAttribute('grab-start', "sliderAction");
+			slider.setAttribute('onhover', "sliderAction");
 			sliderText(slider);
 
 			scene.appendChild(slider);
