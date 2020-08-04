@@ -62,11 +62,11 @@
 				                  colliderEventProperty: els;
 				                  colliderEndEvent:raycaster-intersection-cleared;
 				                  colliderEndEventProperty: clearedEls;"></a-mixin>
-				<a-mixin id="controller-right" mixin="pointer"
+				<a-mixin id="controller-right" mixin="pointer" line="color: blue; opacity: 0.75"
 				     vive-controls="hand: right" oculus-touch-controls="hand: right"
 				     windows-motion-controls="hand: right"
 				     gearvr-controls daydream-controls oculus-go-controls></a-mixin>
-				<a-mixin id="controller-left" mixin="pointer"
+				<a-mixin id="controller-left" mixin="pointer" line="color: blue; opacity: 0.75"
 				     vive-controls="hand: left" oculus-touch-controls="hand: left"
 				     windows-motion-controls="hand: left"></a-mixin>
 
@@ -93,7 +93,7 @@
 				<a-entity id="podiumEntity" mixin="box" class="remote" position="0 2 0" scale="2 2 2" editable></a-entity>
 			</a-entity>
 
-			<a-box id="caja" mixin="box" class="remote" position="0 2 0" color="blue" dynamic-body></a-box>
+			<a-box id="caja" mixin="box" class="remote" position="0 2 0" color="green" dynamic-body></a-box>
 
 
 			<!-- User Camera -->
@@ -143,6 +143,7 @@
 			var barra = document.querySelector('#slider');
 			var lefthand = document.querySelector('#lh');
 			var panelbutton =  document.querySelector('#buttonPanel');
+			var tablebutton =  document.querySelector('#buttonTable');
 			var caja =  document.querySelector('#caja');
 
 			lefthand.addEventListener('bbuttontouchend', function(){
@@ -156,6 +157,12 @@
     		});
 			panelbutton.addEventListener('raycaster-intersected-cleared', function () {
       			panelbutton.setAttribute('color', "black");
+    		});
+			tablebutton.addEventListener('raycaster-intersected', function () {
+      			tablebutton.setAttribute('color', "blue");
+    		});
+			tablebutton.addEventListener('raycaster-intersected-cleared', function () {
+      			tablebutton.setAttribute('color', "black");
     		});
 		</script>
 	</body>

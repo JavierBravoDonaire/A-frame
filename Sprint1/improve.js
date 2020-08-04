@@ -460,6 +460,7 @@ AFRAME.registerComponent('create-panel', {
 			slider.setAttribute('gui-item', "");
 			slider.setAttribute('gui-slider', "");
 			slider.setAttribute('position', "3 4 -4");
+			slider.setAttribute('clickable', "");
 			slider.setAttribute('onclick', "sliderAction");
 			sliderText(slider);
 
