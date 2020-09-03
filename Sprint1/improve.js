@@ -62,6 +62,7 @@ function cloneEntity(entity){
 
 	// Podium's entity changes
 	podiumEntity.removeAttribute('id');
+	podiumEntity.classList.add("gridded");
 
 	podium.appendChild(newEl);
 }

@@ -15,7 +15,7 @@
 		<script src="./improve.js"></script>
 	</head>
 	<body>
-		<a-scene>
+		<a-scene editor>
 			<a-assets>
 				<img id="groundimg" src="../assets/imgs/ground.jpg">
 				<img id="panelimg" src="../assets/imgs/wall.jpg">
@@ -70,13 +70,13 @@
 				<a-entity id="podiumEntity" mixin="box" class="remote" position="0 2 0" scale="2 2 2" editable></a-entity>
 			</a-entity>
 
-			<a-box id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="red" grabbable stretchable kinema-body="radius: 0.5" scale="2 2 2"></a-box>
+			<a-box wireframe="true" id="caja" class="remote" position="0 1 0" width="0.5" height="0.5" depth="0.5" color="red" grabbable stretchable kinema-body="radius: 0.5" scale="2 2 2"></a-box>
 
 
 			<!-- User Camera -->
 			<a-entity id="player" movement-controls="fly: true" position="0 0 9" look-controls
 				progressive-controls="objects: [grabbable], [droppable], [clickable];">
-	        	<a-entity camera position="0 1.7 0" capture-mouse
+	        	<a-entity camera position="0 1.7 0" capture-mouse keyboard-controls
 					raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
 					static-body
 					super-hands="colliderEvent: raycaster-intersection;
@@ -97,6 +97,20 @@
 			var sceneEl = document.querySelector('a-scene');
 			var playerEl = document.querySelector('#player');
 			var barra = document.querySelector('#slider');
+
+			document.addEventListener("keydown", event => {
+				var griddedEls = sceneEl.querySelectorAll('.gridded');
+  				if (event.isComposing || event.keyCode === 71) {
+					for (var i = 0; i < griddedEls.length; i++) {
+						griddedEls[i].setAttribute('material', "wireframe:" + "true");
+					}
+  				}
+				if (event.isComposing || event.keyCode === 72) {
+					for (var i = 0; i < griddedEls.length; i++) {
+  						griddedEls[i].setAttribute('material', "wireframe:" + "false");
+					}
+  				}
+			});
 		</script>
 	</body>
 </html>
