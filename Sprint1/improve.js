@@ -1,3 +1,57 @@
+function createGrid(size) {
+
+	for (var i = -size; i <= size; i++) {
+		var z = document.createElement('a-entity');
+		var x = document.createElement('a-entity');
+		var y = document.createElement('a-entity');
+		var marksx = document.createElement('a-entity');
+		var marksz = document.createElement('a-entity');
+
+		// Clase linea para acceder a todos ellos
+		z.setAttribute('class','linedit');
+		y.setAttribute('class','linedit');
+		x.setAttribute('class','linedit');
+		marksx.setAttribute('class','linedit');
+		marksz.setAttribute('class','linedit');
+
+		// Cuadrícula
+		z.setAttribute('line', 'start: -' + size + ', 0.1, '  + i + '; end: ' + size + ' 0.1 ' + i + '; color: #47443F; visible: false');
+		x.setAttribute('line', 'start: ' + i + ', 0.1, -' + size + '; end: ' + i + ' 0.1 ' + size  + '; color: #47443F; visible: false');
+		if(size >= 0){
+			// Marcas en el eje y
+			marksx.setAttribute('line', 'start: -0.2, ' + i + ', 0; end: 0.2 ' + i + ' 0; color: #47443F; visible: false');
+			marksz.setAttribute('line', 'start: 0, ' + i + ', -0.2; end: 0 ' + i + ' 0.2; color: #47443F; visible: false');
+			sceneEl.appendChild(marksx);
+			sceneEl.appendChild(marksz);
+		}
+		if(i == -size){
+			// Eje y
+			y.setAttribute('line', 'start: 0, 0, 0; end:  0 ' + size  + '0; color: #47443F; visible: false');
+			sceneEl.appendChild(y);
+		}
+		sceneEl.appendChild(z);
+		sceneEl.appendChild(x);
+	}
+}
+
+function addaxis(entity){
+	var z = document.createElement('a-entity');
+	var y = document.createElement('a-entity');
+	var x = document.createElement('a-entity');
+
+	z.setAttribute('line', 'start: 0, 0, 0; end: 0 0 2; color: #47443F; visible: false');
+	y.setAttribute('line', 'start: 0, 0, 0; end: 0 2 0; color: #47443F; visible: false');
+	x.setAttribute('line', 'start: 0, 0, 0; end: 2 0 0; color: #47443F; visible: false');
+	// Clase linea para acceder a todos ellos
+	z.setAttribute('class','linedit');
+	y.setAttribute('class','linedit');
+	x.setAttribute('class','linedit');
+
+	entity.appendChild(x);
+	entity.appendChild(y);
+	entity.appendChild(z);
+}
+
 function createEl(entity, position) {
 	var podiumEntity = document.querySelector("#podiumEntity");
 	var podium = podiumEntity.parentNode;
@@ -63,6 +117,9 @@ function cloneEntity(entity){
 	// Podium's entity changes
 	podiumEntity.removeAttribute('id');
 	podiumEntity.classList.add("gridded");
+
+	// Añado a la entidad sus ejes
+	addaxis(podiumEntity);
 
 	podium.appendChild(newEl);
 }
@@ -474,6 +531,37 @@ AFRAME.registerComponent('create-panel', {
 			//el.parentNode.parentNode.removeChild(el.parentNode);
 
 			event.stopPropagation();
+		});
+	}
+});
+
+AFRAME.registerComponent('edit-mode', {
+	schema: {
+		event: {type: 'string', default: 'click'},
+	},
+
+	init: function () {
+		var self = this;
+
+		document.addEventListener("keydown", event => {
+			var griddedEls = sceneEl.querySelectorAll('.gridded');
+			var lines = sceneEl.querySelectorAll('.linedit');
+			if (event.isComposing || event.keyCode === 71) {
+				for (var i = 0; i < griddedEls.length; i++) {
+					griddedEls[i].setAttribute('material', "wireframe:true");
+				}
+				for (var i = 0; i < lines.length; i++) {
+					lines[i].setAttribute('line', "visible:true");
+				}
+			}
+			if (event.isComposing || event.keyCode === 72) {
+				for (var i = 0; i < griddedEls.length; i++) {
+					griddedEls[i].setAttribute('material', "wireframe:false");
+				}
+				for (var i = 0; i < lines.length; i++) {
+					lines[i].setAttribute('line', "visible:false");
+				}
+			}
 		});
 	}
 });

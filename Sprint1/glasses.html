@@ -110,7 +110,7 @@
 
 				<!--<a-entity sphere-collider="objects: a-box" super-hands hand-controls="left"></a-entity>
      			<a-entity sphere-collider="objects: a-box" super-hands hand-controls="right"></a-entity>-->
-			<a-entity id="player" position="0 0 5" movement-controls="fly: false" gamepad-controls="" trackpad-controls="" keyboard-controls="" touch-controls="">
+			<a-entity id="player" position="0 0 5" movement-controls="fly: false" edit-mode gamepad-controls="" trackpad-controls="" keyboard-controls="" touch-controls="">
 				<a-entity camera position="0 2.5 0" look-controls
 				capture-mouse
 				static-body
@@ -146,10 +146,11 @@
 			var tablebutton =  document.querySelector('#buttonTable');
 			var caja =  document.querySelector('#caja');
 
+			createGrid('20');
+
 			lefthand.addEventListener('bbuttontouchend', function(){
 				//document.querySelector('a-scene').exitVR();
 				caja.setAttribute("color", "white");
-				console.log("ESTOY DANDO A LA B YEEES");
 			});
 
 			panelbutton.addEventListener('raycaster-intersected', function () {

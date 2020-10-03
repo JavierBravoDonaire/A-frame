@@ -48,6 +48,8 @@
 			 		 event-set__dragoff="_event: dragover-end; material.wireframe: false"
 					 event-set__hoveron="_event: hover-start; material.opacity: 0.7; transparent: true"
 	                 event-set__hoveroff="_event: hover-end; material.opacity: 1; transparent: false"></a-mixin>
+				<a-mixin id="line" geometry="primitive: line;" material="color: black"></a-mixin>
+
 
 				<a-asset-item id="table" src="../assets/3d/table/scene.gltf"></a-asset-item>
 				<a-asset-item id="base" src="../assets/3d/base/scene.gltf"></a-asset-item>
@@ -74,7 +76,7 @@
 
 
 			<!-- User Camera -->
-			<a-entity id="player" movement-controls="fly: true" position="0 0 9" look-controls
+			<a-entity id="player" movement-controls="fly: true" position="0 0 9" edit-mode look-controls
 				progressive-controls="objects: [grabbable], [droppable], [clickable];">
 	        	<a-entity camera position="0 1.7 0" capture-mouse keyboard-controls
 					raycaster="objects: .button, .remote, .holo; showLine: true" cursor="rayOrigin:mouse"
@@ -98,19 +100,23 @@
 			var playerEl = document.querySelector('#player');
 			var barra = document.querySelector('#slider');
 
-			document.addEventListener("keydown", event => {
-				var griddedEls = sceneEl.querySelectorAll('.gridded');
-  				if (event.isComposing || event.keyCode === 71) {
-					for (var i = 0; i < griddedEls.length; i++) {
-						griddedEls[i].setAttribute('material', "wireframe:" + "true");
-					}
-  				}
-				if (event.isComposing || event.keyCode === 72) {
-					for (var i = 0; i < griddedEls.length; i++) {
-  						griddedEls[i].setAttribute('material', "wireframe:" + "false");
-					}
-  				}
-			});
+			createGrid('20');
+
+
+
+			// document.addEventListener("keydown", event => {
+			// 	var griddedEls = sceneEl.querySelectorAll('.gridded');
+  			// 	if (event.isComposing || event.keyCode === 71) {
+			// 		for (var i = 0; i < griddedEls.length; i++) {
+			// 			griddedEls[i].setAttribute('material', "wireframe:" + "true");
+			// 		}
+  			// 	}
+			// 	if (event.isComposing || event.keyCode === 72) {
+			// 		for (var i = 0; i < griddedEls.length; i++) {
+  			// 			griddedEls[i].setAttribute('material', "wireframe:" + "false");
+			// 		}
+  			// 	}
+			// });
 		</script>
 	</body>
 </html>
