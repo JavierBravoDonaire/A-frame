@@ -58,6 +58,6 @@ Sprint 1: (CURRENT PHASE)
 		movilidad a la entidad del podium y a su vez que se cree una nueva en el
 		podium para poder crear infinitas.
 	(19/07/2020)
-		Terminada la mobilidad de entidades. Podemos arrastrar una entidad fuera
+		Terminada la movilidad de entidades. Podemos arrastrar una entidad fuera
 		del podium para utilizarla como queremos y ademas se crea un copia de
-		esta en el podium para poder seguir creando infinitas entidades. 
+		esta en el podium para poder seguir creando infinitas entidades.

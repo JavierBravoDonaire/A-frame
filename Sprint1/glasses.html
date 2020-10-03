@@ -80,12 +80,18 @@
 				width="10000" src="#groundimg" repeat="800 600" static-body></a-plane>
 
 			<a-plane id="panel" position="0 2 -4" rotation="0 0 0" height="3"
-				width="2" src="#panelimg" static-body>
-				<a-box id="buttonTable" clickable grabbable class="button" position="0 0.625 0.05" height="1" width="1" depth="0.1" color="black" create-table>
+				width="2.9" src="#panelimg" static-body>
+				<a-box id="buttonTable" clickable grabbable class="button" position="0 0.45 0.05" height="1" width="1" depth="0.1" color="black" create-table>
 					<a-text value="Table" position="0 0 0.05" align="center"></a-text>
 				</a-box>
-				<a-box id="buttonPanel" clickable class="button" position="0 -0.625 0.05" height="1" width="1" depth="0.1" color="black" create-panel>
+				<a-box id="buttonPanel" clickable class="button" position="0 -0.750 0.05" height="1" width="1" depth="0.1" color="black" create-panel>
 					<a-text value="Panel" position="0 0 0.05" align="center"></a-text>
+				</a-box>
+				<a-box id="enterEditButton" enter-edit-mode clickable class="button" position="-0.7 1.2 0.05" height="0.3" width="1.2" depth="0.1" color="black">
+					<a-text value="Enter Edit" position="0 0 0.05" align="center"></a-text>
+				</a-box>
+				<a-box id="exitEditButton" exit-edit-mode clickable class="button" position="0.7 1.2 0.05" height="0.3" width="1.2" depth="0.1" color="black">
+					<a-text value="Exit Edit" position="0 0 0.05" align="center"></a-text>
 				</a-box>
 			</a-plane>
 
@@ -142,29 +148,17 @@
 			var playerEl = document.querySelector('#player');
 			var barra = document.querySelector('#slider');
 			var lefthand = document.querySelector('#lh');
-			var panelbutton =  document.querySelector('#buttonPanel');
-			var tablebutton =  document.querySelector('#buttonTable');
 			var caja =  document.querySelector('#caja');
 
 			createGrid('20');
+			coloredOnSelect();
 
 			lefthand.addEventListener('bbuttontouchend', function(){
 				//document.querySelector('a-scene').exitVR();
 				caja.setAttribute("color", "white");
 			});
 
-			panelbutton.addEventListener('raycaster-intersected', function () {
-      			panelbutton.setAttribute('color', "blue");
-    		});
-			panelbutton.addEventListener('raycaster-intersected-cleared', function () {
-      			panelbutton.setAttribute('color', "black");
-    		});
-			tablebutton.addEventListener('raycaster-intersected', function () {
-      			tablebutton.setAttribute('color', "blue");
-    		});
-			tablebutton.addEventListener('raycaster-intersected-cleared', function () {
-      			tablebutton.setAttribute('color', "black");
-    		});
+
 		</script>
 	</body>
 </html>
