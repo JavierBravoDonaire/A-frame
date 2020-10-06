@@ -71,9 +71,9 @@ function addaxis(entity){
 	var y = document.createElement('a-entity');
 	var x = document.createElement('a-entity');
 
-	z.setAttribute('line', 'start: 0, 0, 0; end: 0 0 2; color: #47443F; visible: false');
-	y.setAttribute('line', 'start: 0, 0, 0; end: 0 2 0; color: #47443F; visible: false');
-	x.setAttribute('line', 'start: 0, 0, 0; end: 2 0 0; color: #47443F; visible: false');
+	z.setAttribute('line', 'start: 0, 0, 0; end: 0 0 2; color: black; visible: false');
+	y.setAttribute('line', 'start: 0, 0, 0; end: 0 2 0; color: black; visible: false');
+	x.setAttribute('line', 'start: 0, 0, 0; end: 2 0 0; color: black; visible: false');
 	// Clase linea para acceder a todos ellos
 	z.setAttribute('class','linedit');
 	y.setAttribute('class','linedit');
@@ -624,7 +624,7 @@ AFRAME.registerComponent('enter-edit-mode', {
 				lines[i].setAttribute('line', "visible:true");
 			}
 			ground.removeAttribute("src");
-			ground.setAttribute("color","green");
+			ground.setAttribute("color","#8AD350");
 		});
 	}
 });
