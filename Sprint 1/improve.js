@@ -1,26 +1,10 @@
 function createEl(entity, position) {
-	var podiumEntity = document.querySelector("#podiumEntity");
-	var podium = podiumEntity.parentNode;
-	var scale = podiumEntity.getAttribute("scale");
-	var colour = podiumEntity.getAttribute("color");
-	var material = podiumEntity.getAttribute("material");
-
-	/*podiumEntity.removeAttribute('class');
-	podiumEntity.removeAttribute('mixin');
-	podiumEntity.removeAttribute('material');*/
-	//podiumEntity.removeAttribute('static-body');
-	//podiumEntity.setAttribute('editable', {}); // PARA PODER CAMBIAR TEXTURA
-	//podiumEntity.setAttribute('static-body', '');
-	//podiumEntity.setAttribute('class', entity + " remote");
-	//podiumEntity.setAttribute('grabbable', '');
-
-	podiumEntity.parentNode.removeChild(podiumEntity);
-
 	var newEl = document.createElement('a-entity');
-	newEl.setAttribute('id', 'podiumEntity');
-	newEl.setAttribute('position', "0 2 0");
-	newEl.setAttribute('class', "remote");
+
+	newEl.setAttribute('position', "-3 1 -4");
 	newEl.setAttribute('editable', {});
+	newEl.setAttribute('static-body', '');
+	newEl.setAttribute('class', entity + " remote");
 
 	switch(entity) {
 		case "cylinder":
@@ -39,31 +23,8 @@ function createEl(entity, position) {
 			newEl.setAttribute('scale', '0 0 0');
 			newEl.setAttribute('position', position);
 	}
-	newEl.setAttribute('scale', scale);
-	newEl.setAttribute('color', colour);
-	newEl.setAttribute('material', material);
 
-	podium.appendChild(newEl);
-}
-
-function cloneEntity(entity){
-	var podiumEntity = document.querySelector("#podiumEntity");
-	var podium = podiumEntity.parentNode;
-	var newEl = document.createElement('a-entity');
-
-	newEl.setAttribute('id', 'podiumEntity');
-	newEl.setAttribute('position', '0 2 0');
-	newEl.setAttribute('mixin', podiumEntity.getAttribute('mixin'));
-	newEl.setAttribute('scale', podiumEntity.getAttribute('scale'));
-	newEl.setAttribute('material', podiumEntity.getAttribute('material'));
-	newEl.setAttribute('color', podiumEntity.getAttribute('color'));
-	newEl.setAttribute('class', "remote");
-	newEl.setAttribute('editable', {});
-
-	// Podium's entity changes
-	podiumEntity.removeAttribute('id');
-
-	podium.appendChild(newEl);
+	sceneEl.appendChild(newEl);
 }
 
 function getNewPosition(){
@@ -77,22 +38,6 @@ function getNewPosition(){
 		z = z-1;
 	}
 	return ((x+0.25) + " " + (y+1.5) + " " + (z));
-}
-
-function changeColor(color){
-	var podiumEntity = document.querySelector("#podiumEntity");
-
-	if(color === 'white'){
-		podiumEntity.removeAttribute('material');
-	}
-	podiumEntity.setAttribute('material', "color:" + color);
-}
-
-function changeTexture(txt){
-	var podiumEntity = document.querySelector("#podiumEntity");
-
-	podiumEntity.removeAttribute("material");
-	podiumEntity.setAttribute('material', "src:#" + txt);
 }
 
 function setHolos(){
@@ -119,15 +64,7 @@ function setButtons(){
 	var buttonCylinderEl = document.querySelector('#buttonCylinder');
 	var buttonBoxEl = document.querySelector('#buttonBox');
 	var buttonSphereEl = document.querySelector('#buttonSphere');
-	var buttonBlue = document.querySelector('#buttonblue');
-	var buttonWhite = document.querySelector('#buttonwhite');
-	var buttonRed = document.querySelector('#buttonred');
-	var buttonYellow = document.querySelector('#buttonyellow');
-	var buttonPink = document.querySelector('#buttonpink');
-	var buttonGreen = document.querySelector('#buttongreen');
-	var buttonDiamond = document.querySelector('#buttondiamond');
-	var buttonGranito = document.querySelector('#buttongranito');
-	var buttonMosaico = document.querySelector('#buttonmosaico');
+
 
 	// Sphere Holo Events
 	buttonSphereEl.addEventListener('grab-start', function() {
@@ -141,34 +78,6 @@ function setButtons(){
 	buttonBoxEl.addEventListener('grab-start', function() {
 		createEl("box", getNewPosition());
 	});
-	// Colours and textures
-	buttonBlue.addEventListener('grab-start', function() {
-		changeColor("blue");
-	});
-	buttonWhite.addEventListener('grab-start', function() {
-		changeColor("white");
-	});
-	buttonRed.addEventListener('grab-start', function() {
-		changeColor("red");
-	});
-	buttonYellow.addEventListener('grab-start', function() {
-		changeColor("yellow");
-	});
-	buttonPink.addEventListener('grab-start', function() {
-		changeColor("pink");
-	});
-	buttonGreen.addEventListener('grab-start', function() {
-		changeColor("green");
-	});
-	buttonDiamond.addEventListener('grab-start', function() {
-		changeTexture("diamond");
-	});
-	buttonGranito.addEventListener('grab-start', function() {
-		changeTexture("granito");
-	});
-	buttonMosaico.addEventListener('grab-start', function() {
-		changeTexture("mosaico");
-	});
 }
 
 function createButtonText(entity, button){
@@ -177,35 +86,11 @@ function createButtonText(entity, button){
 	text.setAttribute('position', "0 0 0.05");
 	text.setAttribute('align', "center");
 	text.setAttribute('value', entity);
-	text.setAttribute('width', '3');
-	text.setAttribute('height', '3');
+	text.setAttribute('width', '2');
+	text.setAttribute('height', '2');
 	text.setAttribute('color', 'black');
 
 	button.appendChild(text);
-}
-
-function sliderText(slider){
-	let text = document.createElement('a-text');
-
-	text.setAttribute('position', "0 0.75 0.05");
-	text.setAttribute('align', "center");
-	text.setAttribute('value', 'Range Slider');
-	text.setAttribute('width', '8');
-	text.setAttribute('height', '8');
-	text.setAttribute('font', 'kelsonsans');
-	text.setAttribute('color', 'black');
-
-	slider.appendChild(text);
-}
-
-function sliderAction(evt) {
-	var entity = document.querySelector('#podiumEntity');
-
-	if(evt.detail.intersection.point.x >= 0){
-		evt.detail.intersection.point.x = evt.detail.intersection.point.x*2;
-	}
-
-	entity.setAttribute('scale', (2+evt.detail.intersection.point.x) + " " +(2+evt.detail.intersection.point.x) + " " +(2+evt.detail.intersection.point.x));
 }
 
 AFRAME.registerComponent('editable', {
@@ -283,7 +168,6 @@ AFRAME.registerComponent('editable', {
 				editTable.appendChild(exitButton);
 
 				el.appendChild(editTable);
-				cloneEntity(this.el);
 				event.stopPropagation();
 			}
 		});
@@ -402,12 +286,11 @@ AFRAME.registerComponent('create-panel', {
 			panel.setAttribute('id','panel');
 			panel.setAttribute('position',"4 2 -4");
 			panel.setAttribute('color',"grey");
-			panel.setAttribute('height','1.1');
-			panel.setAttribute('width','5');
+			panel.setAttribute('height','1');
+			panel.setAttribute('width','4');
 			panel.setAttribute('static-body','');
 
 			let color = ['blue', 'white', 'red'];
-			let colours = ['blue', 'white', 'red', 'yellow', 'pink', 'green', "#diamond", "#granito", "#mosaico"];
 			let entities = data.entities;
 			let i = 0;
 			for (let entity of entities){
@@ -416,7 +299,7 @@ AFRAME.registerComponent('create-panel', {
 									width: 0.5, height: 0.5, depth: 0.025});
 				button.setAttribute('id', "button" + entity);
 				button.setAttribute('class', 'remote');
-				button.setAttribute('position', ((entities.indexOf(entity)*0.3)-0.3) + ((entities.indexOf(entity)*0.3)-0.3)+" -0.15");
+				button.setAttribute('position', ((entities.indexOf(entity)*0.3)-0.3) + ((entities.indexOf(entity)*0.3)-0.3)+" 0.01");
 				button.setAttribute('material', "color:" + color[i]);
 				button.setAttribute('clickable', {});
 				createButtonText(entity, button);
@@ -424,50 +307,9 @@ AFRAME.registerComponent('create-panel', {
 
 				i++;
 			}
-			i = 0;
-			for (let colour of colours){
-				let button = document.createElement('a-entity');
-				button.setAttribute('geometry', {primitive: 'box',
-									width: 0.25, height: 0.25, depth: 0.025});
-
-				button.setAttribute('class', 'remote');
-				button.setAttribute('position', (((colours.indexOf(colour)*0.2)-0.2)-1) + ((colours.indexOf(colour)*0.3)-0.9) + " 0.3");
-				if(i <= 5){
-					button.setAttribute('id', "button" + colour);
-					button.setAttribute('material', "color:" + colours[i]);
-				}else{
-					button.setAttribute('id', "button" + colour.slice(1));
-					button.setAttribute('material', "src:" + colours[i]);
-				}
-				button.setAttribute('clickable', {});
-				panel.appendChild(button);
-
-				i++;
-			}
 			scene.appendChild(panel);
 
 			setButtons();
-
-			// Crea Range Slider
-			let slider = document.createElement('a-gui-slider');
-			slider.setAttribute('id', "slider");
-			slider.setAttribute('class', "remote");
-			slider.setAttribute('width', "2.5");
-			slider.setAttribute('height', "2.2");
-			slider.setAttribute('percent', "0.5");
-			slider.setAttribute('margin', "0 0 0.05 0");
-			slider.setAttribute('gui-interactable', "");
-			slider.setAttribute('gui-item', "");
-			slider.setAttribute('gui-slider', "");
-			slider.setAttribute('position', "3 4 -4");
-			slider.setAttribute('clickable', "");
-			slider.setAttribute('hoverable', "");
-			slider.setAttribute('onclick', "sliderAction");
-			slider.setAttribute('onhover', "sliderAction");
-			sliderText(slider);
-
-			scene.appendChild(slider);
-
 
 			// Elimina la eleccion
 			//el.parentNode.parentNode.removeChild(el.parentNode);
