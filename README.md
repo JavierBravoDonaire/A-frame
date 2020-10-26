@@ -10,3 +10,5 @@ Improve (Sprint 2) --> https://javierbravodonaire.github.io/A-frame/Sprint%202/i
 DesktopMode (Sprint 3) --> https://javierbravodonaire.github.io/A-frame/Sprint%203/desktop.html
 
 GlassesMode (Sprint 3) --> https://javierbravodonaire.github.io/A-frame/Sprint%203/glasses.html
+
+![](demo.gif)
